@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Formulär</title>
+    <link rel="stylesheet" href="https://cdn.rawgit.com/Chalarangelo/mini.css/v3.0.1/dist/mini-default.min.css">
+    <link rel="stylesheet" href="uppgift1-1.css">
+</head>
+<body>
+    <form action="./script.php" method="POST">
+        <legend>Personlig kommentar</legend><br>
+    <label>Förnamn</label>
+        <input type="text" name="förnamn" placeholder="Förnamn" required>
+        
+        <label>Efternamn</label>
+        <input type="text" name="efternamn" placeholder="Efternamn" required>
+        
+        <label>Övrig kommentar</label>
+        <textarea name="kommentar"cols="30" rows="10" placeholder="skriv din personliga kommentar här"></textarea>
+
+        <button>Skicka kommentarer</button>
+    </form>
+</body>
+</html>

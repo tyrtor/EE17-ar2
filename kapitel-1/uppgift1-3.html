@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Formulär</title>
+    <link rel="stylesheet" href="https://cdn.rawgit.com/Chalarangelo/mini.css/v3.0.1/dist/mini-default.min.css">
+    <link rel="stylesheet" href="uppgift1-1.css">
+</head>
+<body>
+    <form action="./script.php" method="POST">
+        <legend>Favorit Film/bok</legend><br>
+        <label>Favorit film</label>
+        <div><input type="radio" name="film" value="Spiderman">Spiderman
+            <input type="radio" name="film" value="Annabelle">Annabelle
+        <input type="radio" name="film" value="Hunger games">Hunger games</div>
+        
+        <label>Favorit bok</label>
+        <select name="fotbollslag">
+            <option value="välj en" selected>*Välj en*</option>
+            <option value="Luftslottet som sprängdes">Luftslottet som sprängdes</option>
+            <option value="En av grabbarna">En av grabbarna</option>
+            <option value="Motståndarna">Motståndarna</option>
+        </select>
+        
+        <button>Skicka</button>
+    </form>
+</body>
+</html>
