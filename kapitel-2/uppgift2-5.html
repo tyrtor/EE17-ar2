@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Formulär</title>
+    <link rel="stylesheet" href="https://cdn.rawgit.com/Chalarangelo/mini.css/v3.0.1/dist/mini-default.min.css">
+    <link rel="stylesheet" href="uppgift2-1.css">
+</head>
+<body>
+    <form action="./skript2-5.php" method="POST">
+        <legend>Temperatur</legend><br>
+        <input type="number" name="temp" placeholder="tex 20°C" required><br>
+        <label>F&deg; - C&deg;</label>
+        <input type="radio" name="riktning" value="FC" checked>
+        <label>C&deg; - F&deg;</label>
+        <input type="radio" name="riktning" value="CF">
+        
+        <button>Skicka</button>
+    </form>
+</body>
+</html>
