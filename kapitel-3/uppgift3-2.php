@@ -9,10 +9,13 @@
 </head>
 <body>
     <?php
-    $fel = $_REQUEST["fel"];
-    if ($fel == "ja") {
-        echo "Fel användarnamn eller lösenord. Vargod försök igen";
+    if (isset($_REQUEST["fel"])) {
+        $fel = $_REQUEST["fel"];
+        if ($fel == "ja") {
+            echo "Fel användarnamn eller lösenord. Vargod försök igen";
+        }
     }
+
     ?>
     <form action="./skript3-2.php" method="POST">
         <legend>Logga in</legend><br>

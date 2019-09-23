@@ -9,18 +9,20 @@
 </head>
 <body>
     <div class="kontainer">
-        <h1>GRATTIS!</h1>
+        <h1>Heltalsserie</h1>
         <?php
 /* ta emot data */
-$aNamn = $_REQUEST["aNamn"];
-$lösen = $_REQUEST["lösen"];
+$tal1 = $_REQUEST["tal1"];
+$tal2 = $_REQUEST["tal2"];
 
 /* skriv ut resultatet */
-if ($aNamn == "Emil" && $lösen == "1234") {
-    echo "<p>Du är inloggad!</p>";
-} else {
-    header("location: uppgift3-2.php?fel=ja");
+echo "<table>";
+echo "<tr><th>Talet</th>";
+
+for ($i=$tal1 + 1; $i < $tal2; $i++) { 
+    echo "<tr><td> $i</td></tr>";
 }
+echo "</table>";
 
 ?>
     </div>
