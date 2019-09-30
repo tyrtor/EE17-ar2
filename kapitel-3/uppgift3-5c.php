@@ -30,12 +30,12 @@
             <button>Skicka</button> 
     </form>
     <?php
-    if (isset($_REQUEST["belopp"], $_REQUEST["tid"], $_REQUEST["ranta"])) {
-    
         /* ta emot data */
-        $belopp = filter_input("input_post", $belopp, FILTER_DEFAULT );
-        $tid = filter_input("input_post", $belopp, FILTER_DEFAULT );
-        $ranta = filter_input("input_post", $belopp, FILTER_DEFAULT );
+        $belopp = filter_input(INPUT_POST, 'belopp', FILTER_DEFAULT );
+        $tid = filter_input(INPUT_POST, 'belopp', FILTER_DEFAULT );
+        $ranta = filter_input(INPUT_POST, 'belopp', FILTER_DEFAULT );
+
+        if ($belopp && $ranta && $tid) {
 
         /* Programmet ska sedan räkna ut den totala lånekostnaden. Räknas ut genom ränta på ränta-principen, årsvis). Så för ett tvåårigt lån på 5000 med räntan 4% skulle alltså lånekostnaden bli 5000*1,04*1,04 - 5000. */
         $kostnad = $belopp;

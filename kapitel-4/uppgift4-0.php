@@ -22,11 +22,16 @@
             <button>Skicka</button> 
     </form>
     <?php
-    if (isset($_post["namn"])) {
-    
+    $namn = filter_input_array(INPUT_POST)["namn"];
+
+    if ($namn) {
         /* ta emot data */
-        $namn = filter_input("input_post", $namn, FILTER_DEFAULT );
-        print_r($namn);
+        //print_r($namn);
+
+        /* loopa igenom arrayen och skriv ut namnen */
+        foreach ($namn as $namnet) {
+            echo "<p>$namnet</p>";
+        }
 }
 
 ?>
