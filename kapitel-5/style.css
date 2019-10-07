@@ -1,0 +1,19 @@
+form{
+    width: 500px;
+    margin: 30px auto;
+    padding: 30px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-gap: 20px;
+}
+.kontainer{
+    width: 500px;
+    margin: 30px auto;
+    padding: 30px;
+    background-color: rgb(167, 167, 167);
+    border: solid 1px #000;
+    border-radius: 20px;
+}
+table tr.grå td{
+    background-color: #999;
+}
