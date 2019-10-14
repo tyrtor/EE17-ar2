@@ -43,7 +43,7 @@ Utveckla skriptet i uppgift 6.2 så att det tar bort mellanslag i postnumret och
     $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
 
 
-    if ($namn && $address && $postnummer && $postort && $emial) {
+    if ($namn && $address && $postnummer && $postort && $email) {
         /* Kontrollera att alla fälten är ifyllda, och innehåller minst 3 tecken. */
         $längdNamn = strlen($namn);
         $längdAddress = strlen($address);
@@ -57,7 +57,7 @@ Utveckla skriptet i uppgift 6.2 så att det tar bort mellanslag i postnumret och
         }
 
         /* Kontrollera sedan att e-postadressen innehåller ett @, och minst en punkt. */
-        if (!strpos($emial, "@")) {
+        if (!strpos($email, "@")) {
             echo "<p>Din E-postaddress måste innhehålla ett @ tecken!</p>";
         }
 
