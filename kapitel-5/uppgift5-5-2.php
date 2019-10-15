@@ -36,12 +36,8 @@ Utveckla skriptet i uppgift 6.2 så att det tar bort mellanslag i postnumret och
 
     if ($losen) {
         /* Skall innehålla minst en stor bokstav */
-        $versaler = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','Å','Ä','Ö'];
-        foreach ($versaler as $tecken) {
-            $pos = strpos($losen, $tecken);
-            if ($pos !== false) {
-                $vPoäng += 1;
-            }
+        if (preg_match("\"A-ZÅÄÖ\"") {
+            # code...
         }
 
         /* skall innehålla minst en liten bokstav */
