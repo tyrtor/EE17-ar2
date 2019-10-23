@@ -1,0 +1,134 @@
+/* Enkel CSS-reset */
+html {
+    box-sizing: border-box;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+body, h1, h2, h3, h4, h5, h6, p, ul {
+    margin: 0;
+    padding: 0;
+}
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+body{
+    background-color: rgb(255, 255, 255);
+    font-family: 'Roboto', sans-serif;
+}
+.kontainer{
+    width: 800px;
+    margin: 30px auto;
+    padding: 30px;
+    background-color: #ddd;
+}
+h1{
+    color: #000;
+}
+p{
+    color: #000;    
+}
+/* knappen */
+.dropbtn {
+    background-color: rgba(214, 214, 214, 0);
+    color: rgb(0, 0, 0);
+    padding: 16px;
+    font-size: 20px;
+    border: none;
+    padding: 10px;
+    opacity: 1;
+}
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+/* rutan som kommer ner */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: rgb(214, 214, 214);
+    min-width: 160px;
+    z-index: 1;
+    text-align: left;
+    border: #000 solid 1px;
+}
+/* texten i rutan */
+.dropdown-content a {
+    color: rgb(0, 0, 0);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+/* när man har muspekaren på dem */
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.dropdown:hover .dropbtn {
+    background-color: #c9c9c9;
+}.dropdown-container{
+    width: 100%;
+    background-color: rgb(233, 233, 233); 
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    text-align: center;
+    margin-top: 40px; 
+    opacity: 0.5;
+}
+img{
+    display: block;
+    width: 15%;
+    margin: 10px auto;
+}
+div.grid-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+}
+div.grid-item{
+    text-align: center;
+}
+.kläder{
+    width: 40%;
+}
+footer{
+    background-color: rgb(230, 230, 230);
+    padding: 25px;
+}
+footer.grid-container{
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+}
+footer.grid-item{
+    text-align: center;
+}
+.nummer{
+    width: 125px;
+}
+.aktiv{
+    background-color: #c9c9c9;
+}
+h2{
+    text-decoration: underline #000;
+    text-align: center;
+    margin-top: 50px;
+}
+p{
+    text-align: center;
+    margin-top: 10px;
+}
+a{
+    color: #000;
+    text-decoration: none;
+}
+form.grid-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+form.grid-item{
+    text-align: center;
+}
+td a{
+    
+}
