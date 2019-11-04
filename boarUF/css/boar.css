@@ -129,6 +129,8 @@ form.grid-container{
 form.grid-item{
     text-align: center;
 }
-td a{
-    
+button{
+    background-color: #c9c9c9;
+    border: none;
+    padding: 7px 10px;
 }

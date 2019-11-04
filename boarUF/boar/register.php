@@ -7,32 +7,39 @@
     <link rel="stylesheet" href="boar.css">
 </head>
 <body>
+    <a href="../boar/boar.html"><img src="../bilder/boarlogo1.jpg" class="sticky" alt="logga med ett vildsvin"></a>
+    <div class="dropdown-container">
+        <div class="dropdown aktiv">
+            <a href="../boar/boar.html"><button class="dropbtn">Hem</ button></a>
+        </div>
+        <div class="dropdown">
+            <a href="../boar/produkter.html"><button class="dropbtn">Produkter</button></a>
+        </div>
+        <div class="dropdown">
+            <a href="../boar/kontakt.html"><button class="dropbtn">Kontakt</button></a>
+        </div>
+        <div class="dropdown">
+            <a href="../boar/om-oss.html"><button class="dropbtn">Om oss</button></a>
+        </div>
+        <!--    start av content -->
+    </div>
     <div class="kontainer">
         <form action="./loggedIn.php" method="post">
-<table>
-    
+            <table>
+
                 <tr>
                     <td><label for="namn">För- och Efternamn</label></td>
-                    <td><input type="text" name="namn" id="" required></td>
-                    <td><input type="text" name="namn" id="" required></td>
+                    <td><input type="text" name="namn" id="" required placeholder="Förnamn"></td>
+                    <td><input type="text" name="namn" id="" required placeholder="Efternamn"></td>
                 </tr>
-    
-    
-    
                 <tr>
-                    <td><label for="email">Emailaddress</label></td>
-                    <td><input type="email" name="email" required></td>
+                    <td><label for="email">Emailadress</label></td>
+                    <td><input type="email" name="email" required placeholder="exempel@exempel.com"></td>
                 </tr>
-    
-    
-    
                 <tr>
                     <td><label for="aNamn">Användarnamn</label></td>
-                        <td><input type="text" name="aNamn" required placeholder="Användarnamn"></td>
+                    <td><input type="text" name="aNamn" required placeholder="Användarnamn"></td>
                 </tr>
-    
-    
-    
                 <tr>
                     <td>
                         <label for="losen">Lösenord</label>
@@ -41,21 +48,16 @@
                         <input type="password" name="losen" required placeholder="Lösenord">
                     </td>
                 </tr>
-    
-    
-    
                 <tr>
                     <td><label for="uLosen">Upprepa ditt Lösenord</label></td>
                     <td><input type="password" name="uLosen" required placeholder="Lösenord"></td>
                 </tr>
-    
-    
                 <tr>
-                    <td><button>Logga in</button></td>
+                    <td><button>Registrera</button></td>
                 </tr>
-</table>
-
-            <p><a href="./login.php">Har du redan ett konto?</a></p>
+            </table>
+                <hr>
+            <p>Har du redan ett konto? <a href="./login.php"> Logga in</a></p>
         </form>
     </div>
     <?php
@@ -69,8 +71,8 @@
         if (strlen($losen < 8)) {
             echo "<p>Ditt lösenord måste vara längre än 8 täcken.</p>";
         }
-        if (preg_match("/^[a-zåäö0-9¤%&\/*]+/i", $losen)) {
-            echo "<p>ditt lösenord måste innhålla minst ett specialtecken(¤%&\/*), minst en stor bokstav och minst en siffra</p>";
+        if (preg_match("/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,12}$/", $losen)) {
+            echo "<p>lösenordet uppfyller inte kraven</p>";
         }
         if (!$uLosen == $losen) {
             echo "<p>Ditt lösenord måste vara likadant!</p>";
@@ -78,5 +80,22 @@
         
     }
 ?>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <footer class="grid-container">
+        <div class="grid-item">
+            <h4><a href="../boar/kontakt.html">Kontakt</a></h4>
+            <img class="nummer" src="../bilder/nummer.PNG" alt="070 - 954 11 95">
+            <a href="mailto: boar.wear.uf@gmail.com">Email: boar.wear.uf@gmail.com</a>
+        </div>
+        <div class="grid-item">
+            <h4>Du hittar oss på</h4>
+            <p><a href="https://www.instagram.com/boaruf/?hl=sv">Instagram</a></p>
+            <p>Facebook</p>
+        </div>
+        <div class="grid-item">
+            <h4>Boar UF</h4>
+            <p>Vi är ett UF-företag som brinner för sport och framförallt innebandy... <a href="../boar/om-oss.html">läs mer</a></p>
+        </div>
+    </footer>
 </body>
 </html>
