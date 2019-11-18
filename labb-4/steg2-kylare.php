@@ -1,4 +1,3 @@
-
 <?php
 /*
 * PHP version 7
@@ -19,37 +18,7 @@ include_once "./funktioner.inc.php";
 <body>
     <div class="kontainer">
         <h1>bygg din egna PC - Steg 2</h1>
-        <h2>Varukorg</h2>
-        <?php
-        /* visa innhållet på varukorgen = varukorg.txt */
-        $filnamn = "varukorg.txt";
 
-        /* ta emot data */
-        $vara = filter_input(INPUT_POST, 'vara', FILTER_SANITIZE_STRING);
-
-        if ($vara) {
-            /* spara ner i textfilen varukorg.txt */
-            $handtag = fopen($filnamn, 'a');
-            fwrite($handtag, "$vara\n");
-            fclose($handtag);
-        }
-
-            $filename = "varukorg.txt";
-            if (is_readable($filename)) {
-                $lines = file('varukorg.txt');
-
-                echo"<table>";
-                echo"<tr><th>Vara</th><th>Pris</th></tr>";
-                foreach ($lines as $line) {
-                    $vara = vara($line);
-                    $pris = pris($line);
-                    echo"<tr><td>$vara</td><td>$pris</td></tr>";
-                }
-                echo"</table>";
-            }else {
-                echo"<p>Varukorgen är tom!</p>";
-            }
-        ?>
         <h2>Välj Kylare</h2>
         <form action="steg3-mobo.php" method="post">
             <?php
@@ -62,7 +31,7 @@ include_once "./funktioner.inc.php";
 
                 if ($info['extension'] == 'jpg' || $info['extension'] == 'png' || $info['extension'] == 'webp') {
                     echo"<label>";
-                    echo"<input type=\"radio\" name=\"vara\" value=\"$objekt\">";
+                    echo"<input type=\"radio\" name=\"vara\" value=\"$objekt\" required>";
                     $vara = vara($objekt);
                     $pris = pris($objekt);
                     echo"<img src=\"$katalog/$objekt\">";
@@ -74,6 +43,45 @@ include_once "./funktioner.inc.php";
 
             <button>Nästa</button>
         </form>
+        <h2>Varukorg</h2>
+        <?php
+        /* visa innhållet på varukorgen = varukorg.txt */
+        $filnamn = "varukorg.txt";
+
+        /* ta emot data */
+        $vara = filter_input(INPUT_POST, 'vara', FILTER_SANITIZE_STRING);
+
+        if ($vara) {
+            /* spara ner i textfilen varukorg.txt */
+            $handtag = fopen($filnamn, 'w');
+            fwrite($handtag, "$vara\n");
+            fclose($handtag);
+        }
+
+            $filename = "varukorg.txt";
+            if (is_readable($filename)) {
+                $lines = file('varukorg.txt');
+                $total = 0;
+                echo"<table>";
+                echo"<thead>";
+                echo"<tr><th>Vara</th><th>Pris</th></tr>";
+                echo"</thead>";
+                echo"<tbody>";
+                foreach ($lines as $line) {
+                    $vara = vara($line);
+                    $pris = pris($line);
+                    $total = $total + $pris;
+                    echo"<tr><td>$vara</td><td>$pris:-</td></tr>";
+                }
+                echo"</tbody>";
+                echo"<tfoot>";
+                echo"<tr><td>Total:</td><td>$total:-</td></tr>";
+                echo"</tfoot";
+                echo"</table>";
+            }else {
+                echo"<p>Varukorgen är tom!</p>";
+            }
+        ?>
     </div>
 </body>
 </html>

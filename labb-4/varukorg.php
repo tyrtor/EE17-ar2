@@ -36,18 +36,28 @@ include_once "./funktioner.inc.php";
             $filename = "varukorg.txt";
             if (is_readable($filename)) {
                 $lines = file('varukorg.txt');
+                $total = 0;
                 echo"<table>";
+                echo"<thead>";
                 echo"<tr><th>Vara</th><th>Pris</th></tr>";
+                echo"</thead>";
+                echo"<tbody>";
                 foreach ($lines as $line) {
                     $vara = vara($line);
                     $pris = pris($line);
-                    echo"<tr><td>$vara</td><td>$pris</td></tr>";
+                    $total = $total + $pris;
+                    echo"<tr><td>$vara</td><td>$pris:-</td></tr>";
                 }
+                echo"</tbody>";
+                echo"<tfoot>";
+                echo"<tr><td>Total:</td><td>$total:-</td></tr>";
+                echo"</tfoot";
                 echo"</table>";
             }else {
                 echo"<p>Varukorgen är tom!</p>";
             }
         ?>
+        <a href="./steg1-cpu.php">börja om!</a>
     </div>
 </body>
 </html>

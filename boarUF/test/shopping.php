@@ -1,20 +1,10 @@
-<?php
-/*
-* PHP version 7
-* @category   ...
-* @author     Emil Linder <emil@familjenlinder.se>
-* @license    PHP CC
-*/
-include_once "./funktioner.inc.php";
-?>
-
 <!DOCTYPE html>
 <html lang="sv">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Webbshop - steg 1 - CPU</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./boar.css">
 </head>
 <body>
     <div class="kontainer">
@@ -34,10 +24,10 @@ include_once "./funktioner.inc.php";
             }
         ?>
         <h2></h2>
-        <form action="steg2-kylare.php" method="post">
+        <form action=".php" method="post">
             <?php
             /* lista alla produkter */
-            $katalog = "./shop-bilder/cpu";
+            $katalog = "../bilder/";
             $resultat = scandir($katalog);
 
             foreach ($resultat as $objekt) {
@@ -45,11 +35,11 @@ include_once "./funktioner.inc.php";
 
                 if ($info['extension'] == 'jpg' || $info['extension'] == 'PNG' || $info['extension'] == 'webp') {
                     echo"<label>";
-                    echo"<input type=\"radio\" name=\"vara\" value=\"$objekt\" required>";
-                    $vara = vara($objekt);
-                    $pris = pris($objekt);
+                    echo"<input type=\"number\" name=\"vara\" value=\"$objekt\" required>";
+                    /* $vara = vara($objekt);
+                    $pris = pris($objekt); */
                     echo"<img src=\"$katalog/$objekt\">";
-                    echo"$vara $pris:-";
+                    /* echo"$vara $pris:-"; */
                     echo"</label>";
                 }
             }

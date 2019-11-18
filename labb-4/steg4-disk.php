@@ -19,6 +19,32 @@ include_once "./funktioner.inc.php";
 <body>
     <div class="kontainer">
         <h1>bygg din egna PC - Steg 4</h1>
+
+        <h2>Välj Disk</h2>
+        <form action="steg5-ram.php" method="post">
+            <?php
+            /* lista alla produkter */
+            $katalog = "./shop-bilder/disk";
+            $resultat = scandir($katalog);
+
+            foreach ($resultat as $objekt) {
+                $info = pathinfo("./$objekt");
+
+                if ($info['extension'] == 'jpg' || $info['extension'] == 'png' || $info['extension'] == 'webp') {
+                    echo"<label>";
+                    echo"<input type=\"radio\" name=\"vara\" value=\"$objekt\" required>";
+                    $vara = vara($objekt);
+                    $pris = pris($objekt);
+                    echo"<img src=\"$katalog/$objekt\">";
+                    echo"$vara $pris:-";
+                    echo"</label>";
+                }
+            }
+            ?>
+
+            <button>Nästa</button>
+        </form>
+
         <h2>Varukorg</h2>
         <?php
         /* visa innhållet på varukorgen = varukorg.txt */
@@ -37,43 +63,27 @@ include_once "./funktioner.inc.php";
             $filename = "varukorg.txt";
             if (is_readable($filename)) {
                 $lines = file('varukorg.txt');
-
+                $total = 0;
                 echo"<table>";
+                echo"<thead>";
                 echo"<tr><th>Vara</th><th>Pris</th></tr>";
+                echo"</thead>";
+                echo"<tbody>";
                 foreach ($lines as $line) {
                     $vara = vara($line);
                     $pris = pris($line);
-                    echo"<tr><td>$vara</td><td>$pris</td></tr>";
+                    $total = $total + $pris;
+                    echo"<tr><td>$vara</td><td>$pris:-</td></tr>";
                 }
+                echo"</tbody>";
+                echo"<tfoot>";
+                echo"<tr><td>Total:</td><td>$total:-</td></tr>";
+                echo"</tfoot";
                 echo"</table>";
             }else {
                 echo"<p>Varukorgen är tom!</p>";
             }
         ?>
-        <h2>Välj Disk</h2>
-        <form action="steg5-ram.php" method="post">
-            <?php
-            /* lista alla produkter */
-            $katalog = "./shop-bilder/disk";
-            $resultat = scandir($katalog);
-
-            foreach ($resultat as $objekt) {
-                $info = pathinfo("./$objekt");
-
-                if ($info['extension'] == 'jpg' || $info['extension'] == 'png' || $info['extension'] == 'webp') {
-                    echo"<label>";
-                    echo"<input type=\"radio\" name=\"vara\" value=\"$objekt\">";
-                    $vara = vara($objekt);
-                    $pris = pris($objekt);
-                    echo"<img src=\"$katalog/$objekt\">";
-                    echo"$vara $pris:-";
-                    echo"</label>";
-                }
-            }
-            ?>
-
-            <button>Nästa</button>
-        </form>
     </div>
 </body>
 </html>
