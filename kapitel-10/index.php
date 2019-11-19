@@ -7,12 +7,19 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<form action="upload.php" method="post" enctype="multipart/form-data">
-        <legend>Ladda upp filer</legend><br>
+<form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post" enctype="multipart/form-data">
 
+        <h1>Ladda upp filer</h1>
+        <?php
+            $uploadSuccess = filter_input(INPUT_GET, 'uploadsuccess', FILTER_SANITIZE_STRING);
+            if ($uploadSuccess) {
+                echo"<p>filen laddades upp!</p>";
+            }
+        ?>
         <label>Ladda upp din fil</label>
         <input type="file" name="file">
         <button type="submit" name="submit">Ladda upp</button> 
-    </form>    
+    </form> 
+  
 </body>
 </html>
