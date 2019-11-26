@@ -1,17 +1,13 @@
 <?php
-function vara($bilden){
-    $delar1 = explode('.', $bilden);
-    $delar2 = explode('-', $delar1[0]);
-    array_pop($delar2);
-    $vara = implode(' ', $delar2);
 
-    return $vara;
+function vara($bilder){
+    preg_match("/(.*)-([0-9]*).\w*$/", $bilder, $match);
+    return $match[1];
 }
-function pris($bilden){
-    $delar1 = explode('.', $bilden);
-    $delar2 = explode('-', $delar1[0]);
-    $pris = array_pop($delar2);
 
-    return $pris;
+function pris($bilder){
+    preg_match("/(.*)-([0-9]*).\w*$/", $bilder, $match);
+    return $match[2];
 }
+
 ?>
