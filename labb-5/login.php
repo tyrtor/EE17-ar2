@@ -6,10 +6,8 @@
 * @license    PHP CC
 */
 session_start();
-var_dump($_SESSION['login']);
 if (!$_SESSION['login']) {
     $_SESSION['login'] = false;
-    header("location: login.php?fran=skriva");
 }
 ?>
 <!DOCTYPE html>
@@ -22,6 +20,16 @@ if (!$_SESSION['login']) {
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<?php
+    $aNamn = filter_input(INPUT_POST, 'aNamn', FILTER_SANITIZE_STRING);
+    $lösen = filter_input(INPUT_POST, 'lösen', FILTER_SANITIZE_STRING);
+    
+    /* skriv ut resultatet */
+    if ($aNamn == "Emil" && $lösen == "1234") {
+        echo "<p class=\"alert alert-success\">Du är inloggad!</p>";
+        $_SESSION['login'] = true;
+    }
+?>
     <div class="kontainer">
         <h1>Bloggen</h1>
         <ul class="nav nav-tabs">
@@ -32,7 +40,7 @@ if (!$_SESSION['login']) {
                 <a class="nav-link" href="./lasa.php">Läsa</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="./skriva.php">Skriva</a>
+                <a class="nav-link" href="./skriva.php">Skriva</a>
             </li>
             <?php if (!$_SESSION['login']) { ?>
             <li class="nav-item">
@@ -44,28 +52,38 @@ if (!$_SESSION['login']) {
             </li>
             <?php }?>
         </ul>
-        <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
+        <?php
+            $fran = filter_input(INPUT_GET, 'fran', FILTER_SANITIZE_STRING);
+            if ($fran == "skriva") {
+                echo"<p class=\"alert alert-info\">För att skriva måste du logga in</p>";
+            }
+        ?>
+        <form action="#" method="POST">
+            <legend>Logga in</legend><br>
 
-            <label for="rubrik">Titeln</label>
-            <input type="text" name="rubrik" id="rubrik">
-
-            <textarea name="inlagg" cols="30" rows="10"></textarea>
-
+            <label>Användarnamn</label>
+            <input type="text" name="aNamn" required>
+            
+            <label>Lösenord</label>
+            <input type="password" name="lösen" required>
             <button>Skicka</button>
         </form>
-    </div>
-    <?php
-    $rubrik = filter_input(INPUT_POST, 'rubrik', FILTER_SANITIZE_STRING);
-    $inlagg = filter_input(INPUT_POST, 'inlagg', FILTER_SANITIZE_STRING);
-    if ($inlagg && $rubrik) {
 
-        $idag = date("F j, Y, G:i");
-        $filnamn = "blogg.txt";
-        $handtag = fopen($filnamn,'a');
-        fwrite($handtag, "<div class=\"inlagg\">\n$rubrik\n$inlagg\n$idag\n</div>\n");
-        fclose($handtag);
-        
-    }
+        <?php
+
+/* ta emot data */
+$aNamn = filter_input(INPUT_POST, 'aNamn', FILTER_SANITIZE_STRING);
+$lösen = filter_input(INPUT_POST, 'lösen', FILTER_SANITIZE_STRING);
+
+/* skriv ut resultatet */
+if ($aNamn == "Emil" && $lösen == "1234") {
+    echo "<p class=\"alert alert-success\">Du är inloggad!</p>";
+    $_SESSION['login'] = true;
+} else {
+    echo"<p class=\"alert alert-warning\">Användarnamnet eller lösenordet är fel</p>";
+    //$_SESSION['login'] = false;
+}
     ?>
+    </div>
 </body>
 </html>

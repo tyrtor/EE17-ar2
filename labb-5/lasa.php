@@ -1,3 +1,15 @@
+<?php
+/*
+* PHP version 7
+* @category   ...
+* @author     Emil Linder <emil@familjenlinder.se>
+* @license    PHP CC
+*/
+session_start();
+if (!$_SESSION['login']) {
+    $_SESSION['login'] = false;
+}
+?>
 <!DOCTYPE html>
 <html lang="sv">
 <head>
@@ -20,6 +32,15 @@
             <li class="nav-item">
                 <a class="nav-link" href="./skriva.php">Skriva</a>
             </li>
+            <?php if (!$_SESSION['login']) { ?>
+            <li class="nav-item">
+                <a class="nav-link" href="./login.php">Logga in</a>
+            </li>
+            <?php } else { ?>
+            <li class="nav-item">
+                <a class="nav-link" href="./logout.php">Logga ut</a>
+            </li>
+            <?php }?>
         </ul>
         <?php
     $fil = "blogg.txt";

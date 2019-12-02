@@ -8,3 +8,13 @@ Prov 2a
 emil emil
 November 26, 2019, 14:48
 </div>
+<div class="inlagg">
+.htaccess
+Nu har vi skyddat vår blogg med en .htaccess fil
+December 2, 2019, 8:58
+</div>
+<div class="inlagg">
+.htaccess
+hej
+December 2, 2019, 9:55
+</div>
