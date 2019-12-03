@@ -70,12 +70,14 @@
     if ($aNamn && $losen && $namn && $email && $uLosen) {
         if (strlen($losen < 8)) {
             echo "<p>Ditt lösenord måste vara längre än 8 täcken.</p>";
-        }
-        if (preg_match("/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,12}$/", $losen)) {
-            echo "<p>lösenordet uppfyller inte kraven</p>";
-        }
-        if (!$uLosen == $losen) {
-            echo "<p>Ditt lösenord måste vara likadant!</p>";
+
+            if (preg_match("/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,12}$/", $losen)) {
+                echo "<p>lösenordet uppfyller inte kraven</p>";
+
+                if (!$uLosen == $losen) {
+                    echo "<p>Ditt lösenord måste vara likadant!</p>";
+                }
+            }
         }
         
     }

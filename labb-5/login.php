@@ -1,10 +1,10 @@
 <?php
 /*
-* PHP version 7
-* @category   ...
-* @author     Emil Linder <emil@familjenlinder.se>
-* @license    PHP CC
-*/
+ * PHP version 7
+ * @category   ...
+ * @author     Emil Linder <emil@familjenlinder.se>
+ * @license    PHP CC
+ */
 session_start();
 if (!$_SESSION['login']) {
     $_SESSION['login'] = false;
@@ -21,14 +21,33 @@ if (!$_SESSION['login']) {
 </head>
 <body>
 <?php
-    $aNamn = filter_input(INPUT_POST, 'aNamn', FILTER_SANITIZE_STRING);
-    $lösen = filter_input(INPUT_POST, 'lösen', FILTER_SANITIZE_STRING);
-    
-    /* skriv ut resultatet */
-    if ($aNamn == "Emil" && $lösen == "1234") {
-        echo "<p class=\"alert alert-success\">Du är inloggad!</p>";
-        $_SESSION['login'] = true;
+$aNamn = filter_input(INPUT_POST, 'aNamn', FILTER_SANITIZE_STRING);
+$losen = filter_input(INPUT_POST, 'lösen', FILTER_SANITIZE_STRING);
+
+/* skriv ut resultatet */
+$fran = filter_input(INPUT_GET, 'fran', FILTER_SANITIZE_STRING);
+if ($aNamn && $losen) {
+    $fil = "losen.txt";
+    $rader = file($fil) or die("filen går ej att öppna!");
+
+    foreach ($rader as $rad) {
+        $delar = explode(' ', $rad);
+        $anvNam = $delar[0];
+        $hash = $delar[1];
+        if ($anvNam == $aNamn) {
+            if (password_verify($losen, $hash)) {
+                echo "<p>Du är inloggad</p>";
+                $_SESSION['login'] = true;
+                //exit();
+            } else {
+                echo "<p>Lösenordet stämmer inte </p>";
+                //exit();
+            }
+        }
     }
+    //echo "<p>Användarnamnet eller Lösenordet hittas inte </p>";
+}
+
 ?>
     <div class="kontainer">
         <h1>Bloggen</h1>
@@ -42,28 +61,28 @@ if (!$_SESSION['login']) {
             <li class="nav-item">
                 <a class="nav-link" href="./skriva.php">Skriva</a>
             </li>
-            <?php if (!$_SESSION['login']) { ?>
+            <?php if (!$_SESSION['login']) {?>
             <li class="nav-item">
                 <a class="nav-link" href="./login.php">Logga in</a>
             </li>
-            <?php } else { ?>
+            <?php } else {?>
             <li class="nav-item">
                 <a class="nav-link" href="./logout.php">Logga ut</a>
             </li>
             <?php }?>
         </ul>
         <?php
-            $fran = filter_input(INPUT_GET, 'fran', FILTER_SANITIZE_STRING);
-            if ($fran == "skriva") {
-                echo"<p class=\"alert alert-info\">För att skriva måste du logga in</p>";
-            }
-        ?>
+$fran = filter_input(INPUT_GET, 'fran', FILTER_SANITIZE_STRING);
+if ($fran == "skriva") {
+    echo "<p class=\"alert alert-info\">För att skriva måste du logga in</p>";
+}
+?>
         <form action="#" method="POST">
             <legend>Logga in</legend><br>
 
             <label>Användarnamn</label>
             <input type="text" name="aNamn" required>
-            
+
             <label>Lösenord</label>
             <input type="password" name="lösen" required>
             <button>Skicka</button>
@@ -80,10 +99,10 @@ if ($aNamn == "Emil" && $lösen == "1234") {
     echo "<p class=\"alert alert-success\">Du är inloggad!</p>";
     $_SESSION['login'] = true;
 } else {
-    echo"<p class=\"alert alert-warning\">Användarnamnet eller lösenordet är fel</p>";
+    echo "<p class=\"alert alert-warning\">Användarnamnet eller lösenordet är fel</p>";
     //$_SESSION['login'] = false;
 }
-    ?>
+?>
     </div>
 </body>
 </html>
