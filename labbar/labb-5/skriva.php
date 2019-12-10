@@ -7,8 +7,7 @@
 */
 session_start();
 var_dump($_SESSION['login']);
-if (!$_SESSION['login']) {
-    $_SESSION['login'] = false;
+if (!isset($_SESSION['login'])) {
     header("location: login.php?fran=skriva");
 }
 ?>
@@ -34,7 +33,7 @@ if (!$_SESSION['login']) {
             <li class="nav-item">
                 <a class="nav-link active" href="./skriva.php">Skriva</a>
             </li>
-            <?php if (!$_SESSION['login']) { ?>
+            <?php if (!isset($_SESSION['login'])) { ?>
             <li class="nav-item">
                 <a class="nav-link" href="./login.php">Logga in</a>
             </li>

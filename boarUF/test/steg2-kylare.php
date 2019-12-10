@@ -20,7 +20,7 @@ include_once "./funktioner.inc.php";
         <h1>bygg din egna PC - Steg 2</h1>
 
         <h2>Välj Kylare</h2>
-        <form action="" method="post">
+        <form action="./varukorg.php" method="post">
             <?php
             /* lista alla produkter */
             $katalog = "../bilder/produkter/";
@@ -31,12 +31,26 @@ include_once "./funktioner.inc.php";
 
                 if ($info['extension'] == 'PNG' || $info['extension'] == 'png') {
                     echo"<label>";
-                    echo"<input type=\"radio\" name=\"vara\" value=\"$objekt\" required>";
+                    echo"<select name=\"antal\">
+                        <option value=\"0\">0</option>
+                        <option value=\"1\">1</option>
+                        <option value=\"2\">2</option>
+                        <option value=\"3\">3</option>
+                        <option value=\"4\">4</option>
+                        <option value=\"5\">5</option>
+                        <option value=\"6\">6</option>
+                        <option value=\"7\">7</option>
+                        <option value=\"8\">8</option>
+                    </select>";
                     $vara = vara($objekt);
                     $pris = pris($objekt);
                     echo"<img src=\"$katalog/$objekt\">";
                     echo"$vara $pris:-";
                     echo"</label>";
+                    if(isset($_POST['submit'])){
+                        $antal = $_POST['antal'];  // Storing Selected Value In Variable
+                        echo "You have selected :" .$antal;  // Displaying Selected Value
+                        }
                 }
             }
             ?>
