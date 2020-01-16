@@ -54,7 +54,7 @@ if (!$_SESSION['login']) {
             echo "<tr><th>Datum</th><th>Rubrik</th><th>Inlägg</th><th>Handling</th></tr>";
             while ($rad = $resultat->fetch_assoc()) {
                 $rest = substr($rad[Inlagg], 0, 20);
-                echo "<tr><td>$rad[Datum]</td><td>$rad[Rubrik]</td><td>$rest...</td><td><a href=\"\"><i style=\"font-size:24px\" class=\"fa\">&#xf044;</i></a> <a href=\"radera.php?id=$rad[ID]\"><i style=\"font-size:24px\" class=\"fa\">&#xf014;</i></a>
+                echo "<tr><td>$rad[Datum]</td><td>$rad[Rubrik]</td><td>$rest...</td><td><a href=\"edit.php?id=$rad[ID]\"><i style=\"font-size:24px\" class=\"fa\">&#xf044;</i></a> <a href=\"radera.php?id=$rad[ID]\"><i style=\"font-size:24px\" class=\"fa\">&#xf014;</i></a>
                 </td></tr>";
             }
             /* stäng ned anslutningen */
