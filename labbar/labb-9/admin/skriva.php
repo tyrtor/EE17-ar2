@@ -6,7 +6,7 @@
  * @license    PHP CC
  */
 session_start();
-include_once "./konfig-db.php";
+include_once "../konfig-db.php";
 ?>
 <!DOCTYPE html>
 <html lang="sv">
@@ -15,20 +15,24 @@ include_once "./konfig-db.php";
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bloggen</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body>
     <div class="kontainer">
         <h1>Bloggen</h1>
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link" href="./lasa.php">Läsa</a>
+                <a class="nav-link" href="../lasa.php">Läsa</a>
+            </li>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="./skriva.php">Skriva</a>
+                <a class="nav-link" href="../sok.php">Sök</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="./admin.php">Admin</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="../skriva.php">Skriva</a>
             </li>
         </ul>
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">

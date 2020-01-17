@@ -27,11 +27,12 @@ if (!$_SESSION['login']) {
             <li class="nav-item">
                 <a class="nav-link  active" href="./lasa.php">Läsa</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="./skriva.php">Skriva</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="./admin.php">Admin</a>
+                <a class="nav-link" href="./sok.php">Sök</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./admin/admin.php">Admin</a>
             </li>
         </ul>
         <?php
@@ -46,7 +47,7 @@ if (!$_SESSION['login']) {
             }
 
             /* SQL??? */
-            $sql = "SELECT * FROM blogg";
+            $sql = "SELECT * FROM blogg ORDER BY `ID` DESC";
             $resultat = $conn->query($sql);
             /* bearbeta svaret från databasen */
             while ($rad = $resultat->fetch_assoc()) {

@@ -96,7 +96,10 @@ body, h1, h2, h3, h4, h5, h6, p, ul {
 }
 
 body {
-    background: #F9F6EB;
+    background-image: url(./bilder/damiano-baschiera-8utUgdTsL8A-unsplash.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 .kontainer {
     width: 600px;
@@ -196,9 +199,9 @@ form span {
     padding: 10px;
 }
 .inlagg{
-    border: solid 2px #000;
+    border: solid 1px #000;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    background-color: #ccc;
+    background-color: rgb(236, 236, 236);
     margin: 10px;
     padding: 5px;
 }
