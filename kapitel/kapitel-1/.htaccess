@@ -1,0 +1,4 @@
+AuthUserFile "/app/EE17-ar2/kapitel/kapitel-1/.htpasswd"
+AuthType Basic
+AuthName "admin"
+require valid-user

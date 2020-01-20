@@ -6,7 +6,7 @@
 * @license    PHP CC
 */
 session_start();
-include_once "./konfig-db.php";
+include_once "./admin/konfig-db.php";
 if (!$_SESSION['login']) {
     $_SESSION['login'] = false;
 }

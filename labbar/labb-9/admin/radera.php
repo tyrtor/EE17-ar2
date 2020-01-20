@@ -5,7 +5,7 @@
  * @author     Emil Linder <emil@familjenlinder.se>
  * @license    PHP CC
  */
-include_once "../konfig-db.php";
+include_once "./konfig-db.php";
 ?>
 <!DOCTYPE html>
 <html lang="sv">
