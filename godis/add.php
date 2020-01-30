@@ -18,15 +18,13 @@ include_once "./konfig-db.php"
 </head>
 <body>
     <div class="kontainer">
+        <h1>GodisBloggen!</h1>
         <ul class="nav nav-pills">
             <li class="nav-item">
                 <a class="nav-link" href="godis.php">Hem</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link active" href="add.php">Lägg till</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="delet.php">Ta bort</a>
             </li>
         </ul>
         <form class="kol2" action="#" method="POST">
@@ -54,34 +52,35 @@ include_once "./konfig-db.php"
             </select>
             <button>Skicka</button>
         </form>
+
+        <?php
+        $namn = filter_input(INPUT_POST, 'namn', FILTER_SANITIZE_STRING);
+        $bild = filter_input(INPUT_POST, 'bild', FILTER_SANITIZE_STRING);
+        $omdomme = filter_input(INPUT_POST, 'omdomme', FILTER_SANITIZE_STRING);
+        $betyg = filter_input(INPUT_POST, 'betyg', FILTER_SANITIZE_STRING);
+
+        /* logga in på mysql-servern och välj databas */
+        $conn = new mysqli($host, $användare, $lösenord, $databas);
+
+        /* Gick det att ansluta? */
+        if ($conn->connect_error) {
+            die("Kunde inte ansluta till databasen: " . $conn->connect_error);
+        }
+
+        /* SQL??? */
+        $sql = "INSERT INTO godis (omdömme, bild, namn, betyg) VALUES ('$omdomme', '$bild', '$namn', '$betyg')";
+        $resultat = $conn->query($sql);
+
+        /* gick det bra */
+        if (!$resultat) {
+            die("<p class=\"alert alert-danger\" role=\"alert\">Det gick åt piparn: " . $conn->error . "</p>");
+        } else {
+            echo "<p class=\"alert alert-success\" role=\"alert\">inlägget har sparats</p>";
+        }
+
+        /* stäng ned anslutningen */
+        $conn->close();
+        ?>
     </div>
-    <?php
-$namn = filter_input(INPUT_POST, 'namn', FILTER_SANITIZE_STRING);
-$bild = filter_input(INPUT_POST, 'bild', FILTER_SANITIZE_STRING);
-$omdomme = filter_input(INPUT_POST, 'omdomme', FILTER_SANITIZE_STRING);
-$betyg = filter_input(INPUT_POST, 'betyg', FILTER_SANITIZE_STRING);
-
-/* logga in på mysql-servern och välj databas */
-$conn = new mysqli($host, $användare, $lösenord, $databas);
-
-/* Gick det att ansluta? */
-if ($conn->connect_error) {
-    die("Kunde inte ansluta till databasen: " . $conn->connect_error);
-}
-
-/* SQL??? */
-$sql = "INSERT INTO godis (omdömme, bild, namn, betyg) VALUES ('$omdomme', '$bild', '$namn', '$betyg')";
-$resultat = $conn->query($sql);
-
-/* gick det bra */
-if (!$resultat) {
-    die("Det gick åt piparn" . $conn->error);
-} else {
-    echo "<p>inlägget har sparats</p>";
-}
-
-/* stäng ned anslutningen */
-$conn->close();
-?>
 </body>
 </html>

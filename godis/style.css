@@ -18,19 +18,19 @@ body, h1, h2, h3, h4, h5, h6, p, ul {
     padding: 10px;
     background-color: rgb(255, 234, 164);
 }
-body{
+body {
     background-color: rgb(252, 225, 138);
 }
-table{
+table {
     width: 100%;
     border-collapse: collapse;
     margin: 2em 0;
 }
-th{
+th {
     background: #305A85;
     color: #FFF;
 }
-th, td{
+th, td {
     padding: 0.5em;
     text-align: left;
 }
