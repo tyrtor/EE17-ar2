@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <canvas></canvas>
+    <script>
+        /* element vi jobbar med */
+        const eCanvas = document.querySelector("canvas");
+
+        /* ställ in bredd och storlek=fullscreen */
+        eCanvas.width = 800;
+        eCanvas.height = 600;
+
+        /* välj rit api */
+        var ctx = eCanvas.getContext("2d");
+        var boll = {
+            x: 0,
+            y: 200,
+            dx: 10,
+            dy: 10
+        }
+
+        /* startvärden */
+        ctx.strokeStyle = "red";
+        boll.x = Math.random() * 700 + 50;
+        boll.y = Math.random() * 500 + 50;
+        boll.dx = Math.random() * 10;
+        boll.dy = Math.random() * 10;
+
+        
+
+        
+        function ritaboll() {
+
+            ctx.beginPath();
+            ctx.arc(boll.x, boll.y, 30, 0, Math.PI * 2);
+            ctx.stroke();
+        }
+        var x = 200;
+        var y = 200;
+        var dx = 1;
+        var dy = 10;
+        function animate() {
+            /* ctx.clearRect(0,0,800,600) */
+            ritaboll();
+
+            
+
+            if (boll.x > 770 || boll.x < 30) {
+                boll.dx = -boll.dx;
+            }
+
+            boll.x+= boll.dx;
+
+            if (boll.y > 570 || boll.y < 30) {
+                boll.dy = -boll.dy;
+            }
+
+            boll.y+= boll.dy;
+            requestAnimationFrame(animate);
+        }
+        animate()
+    </script>
+</body>
+</html>

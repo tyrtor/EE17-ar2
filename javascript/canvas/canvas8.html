@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <canvas></canvas>
+    <script>
+        /* element vi jobbar med */
+        const eCanvas = document.querySelector("canvas");
+
+        /* ställ in bredd och storlek=fullscreen */
+        eCanvas.width = 800;
+        eCanvas.height = 600;
+
+        /* globala variabler */
+        var ctx = eCanvas.getContext("2d");
+        var papper = {
+            x: 400,
+            y: 300,
+            a: 0,
+            s: 0,
+            dx: 0,
+            dy: 0,
+            da: 0,
+            cw: false,
+            ccw: false,
+            gas: false,
+        };
+        var stop = false;
+
+        /* bildbehållare */
+        var image = new Image();
+        image.src = "./paperball.png";
+        var image1 = new Image();
+        image1.src = "./fire.png";
+
+        /* lyssna på tangenterna */
+        window.addEventListener("keydown", knappIn);
+
+        function knappIn(e) {
+            if (e.key == "ArrowRight") {
+                papper.cw = true;
+            }
+            if (e.key == "ArrowLeft") {
+                papper.ccw = true;
+            }
+            if (e.key == " ") {
+                papper.gas = true;
+            }
+        }
+        window.addEventListener("keyup", knappUt);
+
+        function knappUt(e) {
+            if (e.key == "ArrowRight") {
+                papper.cw = false;
+            }
+            if (e.key == "ArrowLeft") {
+                papper.ccw = false;
+            }
+            if (e.key == " ") {
+                papper.gas = false;
+            }
+        }
+        /* loopen */
+        ctx.font = "21px Arial"
+        ctx.fillStyle = "#fff"
+        function animate() {
+            ctx.clearRect(0, 0, 800, 600);
+
+            /* visa hastighet */
+            ctx.fillText("Höjd =" + (575- papper.y).toFixed(1), 50, 350);
+            ctx.fillText("Fart =" + papper.dy.toFixed(1), 50, 300);
+
+
+            console.log(papper.x, papper.y);
+
+            /* inte ramla utanför canvas */
+            if (papper.y >= 575) {
+                papper.y = 575;
+                if (papper.dy < 0.2) {
+                    ctx.fillText("THE EAGLE HAS LANDED!", 150, 250);
+                } else {
+                    ctx.fillText("DISASTER!", 150, 250);
+                }
+                papper.dy = 0;
+                stop = true;
+            } else if (papper.y < -25) {
+                papper.y = 625;
+            }
+            if (papper.x > 825) {
+                papper.x = -25;
+            } else if (papper.x < -25) {
+                papper.x = 825;
+            }
+
+            if (papper.cw) {
+                papper.da += 0.001;
+            }else if (papper.ccw) {
+                papper.da -= 0.001;
+            }else if (papper.gas) {
+                papper.s += 0.0002;
+                papper.dx += Math.sin(papper.a) * papper.s;
+                papper.dy -= Math.cos(papper.a) * papper.s;
+            }
+            papper.x += papper.dx;
+            papper.y += papper.dy;
+            papper.a += papper.da;
+
+            /* gravitation */
+            papper.dy += 0.005;
+            /* rita ut bild */
+            ctx.save();
+            ctx.translate(papper.x, papper.y);
+            ctx.rotate(papper.a);
+            if (papper.gas) {
+                ctx.drawImage(image1,-12, 15, 30, 30);
+            }
+            ctx.drawImage(image,-25, -25, 50, 50);
+            ctx.restore();
+
+            /* avbryt loopen */
+            if (stop) {
+                return;
+            }
+            requestAnimationFrame(animate);
+        }
+        animate()
+    </script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas></canvas>
+    <script>
+        /* element vi jobbar med */
+        const eCanvas = document.querySelector("canvas");
+
+        /* ställ in bredd och storlek=fullscreen */
+        eCanvas.width = window.innerWidth;
+        eCanvas.height = window.innerHeight;
+
+        /* välj rit api */
+        var ctx = eCanvas.getContext("2d");
+
+        /* rita smiley */
+        function smiley(x,y) {
+        ctx.beginPath();
+        ctx.arc(x,y,25,0,Math.PI*2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(x+10,y-5,2,0,Math.PI*2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(x-10,y-5,2,0,Math.PI*2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(x,y+5,10,0,Math.PI);
+        ctx.stroke();
+        }
+        function slumpFärg() {
+            var r = Math.ceil(Math.random()*255)
+            var g = Math.ceil(Math.random()*255)
+            var b = Math.ceil(Math.random()*255)
+            var färg = 'rgb('+ r + ',' + g + ',' + b + ')';
+            return färg;
+        }
+        /* globala variabler */
+        var smileyX = Math.ceil(Math.random()*1500),
+            smileyY = Math.ceil(Math.random()*700),
+            dx = Math.ceil(Math.random() * 5),
+            dy = Math.ceil(Math.random() * 5);
+
+
+        /* här lägger vi allt som animeras */
+        function gameloop() {
+            /* sudda ut canvas */
+            ctx.clearRect(0,0,1536,722);
+
+            /* sita ut en figur */
+            smiley(smileyX,smileyY);
+
+            /* öka på y */
+            smileyY += dy;
+
+            /* öka på x */
+            smileyX += dx;
+
+            /* vad händer vid kanterna? */
+            /* nedre och övre kant */
+            if ((smileyY + 25) > 722 || (smileyY - 25) < 0) {
+                dy = -dy;
+                eCanvas.style.backgroundColor = slumpFärg()
+            }
+            /* högra vänstra kanten */
+            if ((smileyX + 25) > 1536 || (smileyX - 25) < 0) {
+                dx = -dx;
+                eCanvas.style.backgroundColor = slumpFärg()
+            }
+
+            /* upprepa loopen */
+            window.requestAnimationFrame(gameloop);
+        }
+        /* kör igång loopen */
+        gameloop();
+
+
+    </script>
+</body>
+</html>

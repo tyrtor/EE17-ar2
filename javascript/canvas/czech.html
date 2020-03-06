@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Canvas Grunder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="canvas">
+        Oops! Din webbläsare stödjer inte canvas.
+    </canvas>
+    <script>
+        /* element vi använder */
+        const eCanvas = document.querySelector("#canvas");
+
+        eCanvas.width = eCanvas.scrollWidth;
+        eCanvas.height = eCanvas.scrollHeight;
+
+        /* slå på rit api */
+        var ctx = eCanvas.getContext("2d");
+
+        /* rita Tjeckiskaflaggan */
+        ctx.fillStyle = 'red';
+        ctx.fillRect(0, 300, 800, 600);
+        
+
+        ctx.beginPath();
+        ctx.moveTo(0,0);
+        ctx.lineTo(400,300);
+        ctx.lineTo(0,600);
+        ctx.lineTo(0,0);
+        ctx.stroke();
+
+        ctx.fillStyle = 'blue';
+        ctx.fill();
+
+    </script>
+</body>
+</html>

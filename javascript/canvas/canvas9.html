@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="kontainer">
+        <canvas></canvas>
+        <div class="kolumn">
+            <h1>Pong</h1>
+            <button type="button" class="btn btn-outline-light" id="start">Start</button>
+            <button type="button" class="btn btn-outline-primary" id="pause">Pause</button>
+        </div>
+    </div>
+    <script>
+        /* element vi jobbar med */
+        const eCanvas = document.querySelector("canvas");
+        const eKnapp = document.querySelector("#start");
+        const ePause = document.querySelector("#pause");
+        /* ställ in bredd och storlek=fullscreen */
+        eCanvas.width = 800;
+        eCanvas.height = 600;
+
+        /* välj rit api */
+        var ctx = eCanvas.getContext("2d");
+        var boll = {
+            radie: 15,
+            x: 0,
+            y: 200,
+            dx: 10,
+            dy: 10
+        };
+        var racket = {
+            x: 10,
+            y: 0,
+            upp: false,
+            ned: false,
+            b: 10,
+            h: 100,
+        }
+        var start = false;
+        var poäng = 1;
+
+        /* starta spelet när vi trycker på knappen */
+        eKnapp.addEventListener('click', function() {
+        if (!start) {
+            start = true;
+            reset();
+        }
+        });
+        /* stanna spelet när man trycker på pause */
+        ePause.addEventListener('click', function() {
+            start = false;
+        });
+
+        /* lyssna på tangenter */
+        window.addEventListener("keydown", function(e) {
+            switch (e.key) {
+                
+                case "ArrowUp":
+                    racket.upp = true;
+                    console.log(e.key);
+                    break;
+                case "ArrowDown":
+                    racket.ned = true;
+                    break;
+            }
+        });
+        window.addEventListener("keyup", function(e) {
+            switch (e.key) {
+                case "ArrowUp":
+                    racket.upp = false;
+                    break;
+                case "ArrowDown":
+                    racket.ned = false;
+                    break;
+            }
+        });
+
+        /* startvärden */
+        ctx.fillStyle = "#fff";
+        function reset() {
+            boll.x = Math.random() * 700 + 50;
+            boll.y = Math.random() * 500 + 50;
+            boll.dx = Math.random() * 5;
+            boll.dy = Math.random() * 5;
+            animate();
+        }
+
+        function ritaboll() {
+            ctx.beginPath();
+            ctx.arc(boll.x, boll.y, boll.radie, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        /* rita racket */
+        function ritaRacket() {
+            ctx.beginPath();
+            ctx.fillRect(racket.x, racket.y, racket.b, racket.h);
+        }
+        var x = 200;
+        var y = 200;
+        var dx = 10;
+        var dy = 10;
+
+        function animate() {
+
+            ctx.clearRect(0,0,800,600);
+            ritaboll();
+            ritaRacket();
+
+            if (racket.ned) {
+                if (racket.y < (500- racket.h)) {
+                    
+                }
+                racket.y += 3;
+            }
+            if (racket.upp) {
+                if (racket.y > 0 ) {
+                    racket.y -= 3;
+                }
+            }
+
+            /* bollen ska studsa på racketen */
+            if ((racket.y <= boll.y) && (boll.y <= (racket.y+racket.h))) {
+                if (boll.x-boll.radie <= racket.x + racket.b) {
+                    console.log("träff", poäng);
+                    boll.dx = -boll.dx;  
+                    poäng ++;
+                }
+            }
+
+            if (boll.x <= 0) {
+                        console.log("game over");
+                        start = false;
+                    }
+
+            if (boll.x > 770) {
+                boll.dx = -boll.dx;
+            }
+            boll.x+= boll.dx;
+            if (boll.y > 570 || boll.y < boll.radie) {
+                boll.dy = -boll.dy;
+            }
+            boll.y+= boll.dy;
+
+            /* här kan vi pausa spelet */
+            if (start) {
+                requestAnimationFrame(animate);
+            }
+        }
+    </script>
+</body>
+</html>

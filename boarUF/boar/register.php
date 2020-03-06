@@ -13,7 +13,7 @@
             <a href="../boar/boar.html"><button class="dropbtn">Hem</ button></a>
         </div>
         <div class="dropdown">
-            <a href="../boar/produkter.html"><button class="dropbtn">Produkter</button></a>
+            <a href="../boar/produkter.php"><button class="dropbtn">Produkter</button></a>
         </div>
         <div class="dropdown">
             <a href="../boar/kontakt.html"><button class="dropbtn">Kontakt</button></a>

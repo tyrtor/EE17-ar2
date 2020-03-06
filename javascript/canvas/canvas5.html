@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas></canvas>
+    <script>
+        /* element vi jobbar med */
+        const eCanvas = document.querySelector("canvas");
+
+        /* ställ in bredd och storlek=fullscreen */
+        eCanvas.width = window.innerWidth;
+        eCanvas.height = window.innerHeight;
+
+        /* välj rit api */
+        var ctx = eCanvas.getContext("2d");
+
+        /* rita dvd */
+        function smiley(x,y) {
+        ctx.beginPath();
+        ctx.arc(x,y,25,0,Math.PI*2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(x+10,y-5,2,0,Math.PI*2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(x-10,y-5,2,0,Math.PI*2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(x,y+5,10,0,Math.PI);
+        ctx.stroke();
+        }
+        function slumpFärg() {
+            var r = Math.ceil(Math.random()*255)
+            var g = Math.ceil(Math.random()*255)
+            var b = Math.ceil(Math.random()*255)
+            var färg = 'rgb('+ r + ',' + g + ',' + b + ')';
+            return färg;
+        }
+        /* globala variabler */
+        var dvdX = Math.ceil(Math.random()*1500),
+            dvdY = Math.ceil(Math.random()*700),
+            dx = Math.ceil(Math.random() * 5),
+            dy = Math.ceil(Math.random() * 5);
+
+        var bild = new Image();
+
+        function setup() {
+            bild.src = "./dvd.jpg";
+            
+            window.requestAnimationFrame(gameloop);
+        }
+
+        /* här lägger vi allt som animeras */
+        function gameloop() {
+            /* sudda ut canvas */
+            ctx.clearRect(0,0,1536,722);
+
+            /* sita ut en figur */
+            ctx.drawImage(bild, dvdX, dvdY, 50, 50);
+
+            /* öka på y */
+            dvdY += dy;
+
+            /* öka på x */
+            dvdX += dx;
+
+            /* vad händer vid kanterna? */
+            /* nedre och övre kant */
+            if ((dvdY + 50) > 722 || (dvdY) < 0) {
+                dy = -dy;
+                eCanvas.style.backgroundColor = slumpFärg()
+            }
+            /* högra vänstra kanten */
+            if ((dvdX + 50) > 1536 || (dvdX) < 0) {
+                dx = -dx;
+                eCanvas.style.backgroundColor = slumpFärg()
+            }
+
+            /* upprepa loopen */
+            window.requestAnimationFrame(gameloop);
+        }
+        /* kör igång spelet */
+        setup();
+
+
+    </script>
+</body>
+</html>

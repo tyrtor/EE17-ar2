@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Canvas Grunder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="canvas">
+        Oops! Din webbläsare stödjer inte canvas.
+    </canvas>
+    <script>
+        /* element vi använder */
+        const eCanvas = document.querySelector("#canvas");
+
+        eCanvas.width = eCanvas.scrollWidth;
+        eCanvas.height = eCanvas.scrollHeight;
+
+        /* slå på rit api */
+        var ctx = eCanvas.getContext("2d");
+
+        /* rita greklands flagga */
+        ctx.fillStyle = 'blue';
+        ctx.fillRect(0,0,800,600);
+        ctx.fill();
+        for (let i = 70; i < 500; i+= 130) {
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0,i,800,65);
+        }
+        ctx.fill();
+        ctx.fillStyle = 'blue';
+        ctx.fillRect(0,0,400,300);
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, 135, 400, 65);
+        ctx.fill();
+        ctx.fillStyle = 'white';
+        ctx.fillRect(100, 0, 65, 330);
+        ctx.fill();
+
+
+    </script>
+</body>
+</html>

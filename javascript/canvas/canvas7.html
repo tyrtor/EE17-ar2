@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <canvas></canvas>
+    <script>
+        /* element vi jobbar med */
+        const eCanvas = document.querySelector("canvas");
+
+        /* ställ in bredd och storlek=fullscreen */
+        eCanvas.width = 800;
+        eCanvas.height = 600;
+
+        /* globala variabler */
+        var ctx = eCanvas.getContext("2d");
+        var papper = {
+            x: 400,
+            y: 300,
+            dx: 1,
+            dy: 1,
+            right: false,
+            left: false,
+            up: false,
+            down: false
+        }
+
+        /* bildbehållare */
+        var image = new Image();
+        image.src = "./paperball.png";
+
+        /* lyssna på tangenterna */
+        window.addEventListener("keydown", knappIn);
+
+        function knappIn(e) {
+            if (e.key == "ArrowRight") {
+                papper.right = true;
+            }
+            if (e.key == "ArrowLeft") {
+                papper.left = true;
+            }
+            if (e.key == "ArrowDown") {
+                papper.down = true;
+            }
+            if (e.key == "ArrowUp") {
+                papper.up = true;
+            }
+        }
+        window.addEventListener("keyup", knappUt);
+
+        function knappUt(e) {
+            if (e.key == "ArrowRight") {
+                papper.right = false;
+            }
+            if (e.key == "ArrowLeft") {
+                papper.left = false;
+            }
+            if (e.key == "ArrowDown") {
+                papper.down = false;
+            }
+            if (e.key == "ArrowUp") {
+                papper.up = false;
+            }
+        }
+        /* loopen */
+        function animate() {
+            ctx.clearRect(0, 0, 800, 600);
+
+            console.log(papper.x, papper.y);
+            
+
+            /* räkna ut kordinaterna */
+            if (papper.right) {
+                papper.x += papper.dx;
+            }
+            if (papper.left) {
+                papper.x -= papper.dx;
+            }
+            if (papper.down) {
+                papper.y += papper.dy;
+            }
+            if (papper.up) {
+                papper.y -= papper.dy;
+            }
+
+            /* inte ramla utanför canvas */
+            if (papper.y > 625) {
+                papper.y = -25;
+            } else if (papper.y < -25) {
+                papper.y = 625;
+            }
+            if (papper.x > 825) {
+                papper.x = -25;
+            } else if (papper.x < -25) {
+                papper.x = 825;
+            }
+            /* åker pappersbollen ut ur canvas nedrekant, dyk upp från ovan. */
+
+            /* rita ut bild */
+            ctx.drawImage(image, papper.x - 25, papper.y - 25, 50, 50);
+
+            requestAnimationFrame(animate);
+        }
+        animate()
+    </script>
+</body>
+</html>

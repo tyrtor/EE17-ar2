@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Canvas Grunder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="canvas">
+        Oops! Din webbläsare stödjer inte canvas.
+    </canvas>
+    <script>
+        /* element vi använder */
+        const eCanvas = document.querySelector("#canvas");
+
+        eCanvas.width = eCanvas.scrollWidth;
+        eCanvas.height = eCanvas.scrollHeight;
+
+        /* slå på rit api */
+        var ctx = eCanvas.getContext("2d");
+
+        /* rita bana */
+        ctx.beginPath();
+        ctx.moveTo(100,100);
+        ctx.lineTo(200,100);
+        ctx.moveTo(100,200);
+        ctx.lineTo( 50,100);
+        ctx.strokeStyle = 'green';
+        ctx.stroke();
+
+        /* rita en bana som är fylld */
+        ctx.beginPath();
+        ctx.lineTo(400,100);
+        ctx.lineTo(500,200);
+        ctx.lineTo(400,200);
+        ctx.lineTo(350,100);
+        ctx.strokeStyle = 'purple';
+        ctx.stroke();
+
+        /* rita en cirkel */
+        ctx.beginPath();
+        ctx.arc(650, 150, 50, 0, Math.PI / 2);
+        ctx.lineTo(650, 150);
+        ctx.fillStyle = 'orange';
+        ctx.fill();
+
+    </script>
+</body>
+</html>
