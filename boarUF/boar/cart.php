@@ -1,4 +1,5 @@
 <?php
+include 'db.php';
 session_start();
 $status = "";
 if (isset($_POST['action']) && $_POST['action'] == "remove") {
