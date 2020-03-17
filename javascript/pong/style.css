@@ -19,3 +19,6 @@ canvas{
     display: grid;
     grid-template-columns: auto auto;
 }
+h4{
+    margin-top: 20px;
+}

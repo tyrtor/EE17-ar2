@@ -37,6 +37,7 @@ if (isset($_POST['action']) && $_POST['action'] == "change") {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title></title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -129,27 +130,30 @@ if ($namn && $email && $amne) {
     $to = $email;
     $subject = $amne;
 
-    $message = "foreach ($_SESSION[shopping_cart] as $product) {";
+/*     $message = "<tr>";
+    $message .= "<td><img src='https://boaruf.se/bilder/produkter/$product[bild]' width=\"50\" height=\"40\"></td>";
+    $message .= "<td>Produkt: $product[namn]</td>";
+    $message .= "<td>Pris: $product[pris] SEK</td>";
+    $message .= "<td>Antal: $product[quantity]</td>";
+    $message .= "Total: $total_price";
+    $message .= "</tr>"; */
+
+    $message  = "<table class=\"table table-striped\">";
     $message .= "<tr>";
-    $message .= "<td>";
-    $message .= "<img src='https://boaruf.se/bilder/produkter/$product[bild]' width=\"50\" height=\"40\" />";
-    $message .= "</td>";
-    $message .= "<td>$product[namn]; <br />";
-    $message .= "<form method='post' action=''>";
-    $message .= "<input type='hidden' name='code' value=\"$product[kod]\" />";
-    $message .= "<input type='hidden' name='action' value=\"remove\" />";
-    $message .= "</form>";
-    $message .= "</td>";
-    $message .= "<td>";
-    $message .= "<form method='post' action=''>";
-    $message .= "<input type='hidden' name='code' value=\"$product[kod]; \" />";
-    $message .= "<input type='hidden' name='action' value=\"change\" />";
-    $message .= "</form>";
-    $message .= "</td>";
-    $message .= "<td>\"$\" . $product[pris]; </td>";
-    $message .= "<td>\"$\" . $product[pris] * $product[quantity]; </td>";
+    $message .= "<th scope=\"col\"></th>";
+    $message .= "<th scope=\"col\">PRODUKT</th>"; 
+    $message .= "<th scope=\"col\">PRIS</th>";
+    $message .= "<th scope=\"col\">ANTAL</th>";
+    $message .= "<th scope=\"col\">TOTAL</th>";
     $message .= "</tr>";
-    $message .= "<?php $total_price += ($product[pris] * $product[quantity]);";
+    $message .= "<tr>";
+    $message .= "<td ><img src='https://boaruf.se/bilder/produkter/$product[bild]' width=\"55\" height=\"60\"></td>";
+    $message .= "<td>Produkt: $product[namn]</td>";
+    $message .= "<td>Pris: $product[pris] SEK</td>";
+    $message .= "<td>Antal: $product[quantity]</td>";
+    $message .= "<td>Total: $total_price</td>";
+    $message .= "</tr>";
+    $message .= "</table>";
 
     // It is mandatory to set the content-type when sending HTML email
     $headers = "MIME-Version: 1.0" . "\r\n";

@@ -12,15 +12,27 @@
         <canvas></canvas>
         <div class="kolumn">
             <h1>Pong</h1>
+
+            <h4>Namn</h4>
+            <input type="text" id="namn">
+
             <button type="button" class="btn btn-outline-light" id="start">Start</button>
             <button type="button" class="btn btn-outline-primary" id="pause">Pause</button>
+
+            <h4>Poäng <span id="poäng">0</span></h4>
+            <h4>Highscore</h4>
+            <p id="Highscore"></p>
         </div>
+        <audio src="">
+            <source src="" type="">
+        </audio>
     </div>
     <script>
         /* element vi jobbar med */
         const eCanvas = document.querySelector("canvas");
         const eKnapp = document.querySelector("#start");
         const ePause = document.querySelector("#pause");
+        const ePoäng = document.querySelector("#poäng");
         /* ställ in bredd och storlek=fullscreen */
         eCanvas.width = 800;
         eCanvas.height = 600;
@@ -43,7 +55,9 @@
             h: 100,
         }
         var start = false;
-        var poäng = 1;
+        var poäng = 0;
+        ljud = new Audio("./bounce.wav");
+        smash = new Audio("./smash.ogg");
 
         /* starta spelet när vi trycker på knappen */
         eKnapp.addEventListener('click', function() {
@@ -102,6 +116,13 @@
             ctx.beginPath();
             ctx.fillRect(racket.x, racket.y, racket.b, racket.h);
         }
+
+        function gameOver() {
+            ctx.beginPath();
+            ctx.font = "50px Sans-serif";
+            ctx.fillStyle = "#FFF";
+            ctx.fillText("Game Over!", 250, 200);
+        }
         var x = 200;
         var y = 200;
         var dx = 10;
@@ -131,20 +152,27 @@
                     console.log("träff", poäng);
                     boll.dx = -boll.dx;  
                     poäng ++;
+                    ePoäng.textContent = poäng;
+                    /* öka hastighet */
+                    boll.dx++;
+                    boll.dy++;
                 }
             }
 
             if (boll.x <= 0) {
                         console.log("game over");
                         start = false;
+                        gameOver();
                     }
 
             if (boll.x > 770) {
                 boll.dx = -boll.dx;
+                ljud.play();
             }
             boll.x+= boll.dx;
             if (boll.y > 570 || boll.y < boll.radie) {
                 boll.dy = -boll.dy;
+                ljud.play();
             }
             boll.y+= boll.dy;
 
