@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Grunder i 2d med canvas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="kontainer">
+        <canvas></canvas>
+        <div class="kolumn">
+            <h1>Pong</h1>
+
+            <h4>Namn</h4>
+            <form>
+                <input type="text" id="namn" required>
+                <button class="btn btn-light" id="start">Start</button>
+                <button class="btn btn-secondary" id="stop">Stop</button>
+            </form>
+
+            <h4>Poäng <span id="poäng">0</span></h4>
+            <h4>Highscore</h4>
+            <p id="highscore"></p>
+        </div>
+    </div>
+    <audio id="smash">
+        <source src="./smash.wav" type="audio/wav">
+      </audio>
+      <audio id="studs">
+        <source src="./studs.wav" type="audio/wav">
+      </audio>
+    <script defer src="./pong.js"></script>
+</body>
+</html>
