@@ -1,5 +1,6 @@
 /* element vi jobbar med */
 const eCanvas = document.querySelector("canvas");
+const ePoäng = document.querySelector("#poäng");
 
 /* ställ in storlek på canvas */
 eCanvas.width = 800;
@@ -7,7 +8,9 @@ eCanvas.height = 600;
 
 /* globala variabler */
 var ctx = eCanvas.getContext("2d");
-var gameOver = false
+var poäng = 0;
+
+/* skapa piga, monster och mynt */
 var piga = {
     rad: 0,
     kol: 0,
@@ -28,36 +31,56 @@ var karta = [
     [13, 0, 54, 0, 55, 0, 0, 0, 54, 0, 55, 0, 55, 0, 0, 0,],
     [12, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,]
 ];
-var monster = {
-    x: 0,
-    y: 0,
+var monster1 = {
+    x: Math.ceil(Math.random() * 750),
+    y: -Math.ceil(Math.random() * 250),
     bild: new Image()
 };
 
 var monster2 = {
-    x: 0,
-    y: 0,
+    x: Math.ceil(Math.random() * 750),
+    y: -Math.ceil(Math.random() * 250),
     bild: new Image()
 };
+
+var mynt1 = {
+    x: Math.ceil(Math.random() * 750),
+    y: -Math.ceil(Math.random() * 250),
+    bild: new Image()
+};
+
+/* spelets variabler */
+var gameOver = false
+
+/* Lagra alla monster i en array */
+var monsters = [];
+monsters.push(monster1);
+monsters.push(monster2);
+
+/* lagra alla mynt i en array */
+var mynten = [];
+mynten.push(mynt1);
 
 /* nyckelpigans startläge */
 piga.rad = 0;
 piga.kol = 1;
 piga.bild.src = "./nyckelpiga.png";
 
-/* monster startläge */
-monster.x = Math.ceil(Math.random() * 750);
-monster.y = 1;
-monster.bild.src = "./monster.png";
-
-/* monster2 startläge */
-monster2.x = Math.ceil(Math.random() * 750);
-monster2.y = 1;
+/* monster bild */
+monster1.bild.src = "./monster.png";
 monster2.bild.src = "./monster.png";
+
+/* Ge mynten en bild */
+mynt1.bild.src = "./coin-sprite.png";
 
 /* ladda in tilesheet */
 var tileSheet = new Image();
 tileSheet.src = "./Tileset.png";
+
+/* starta spelet */
+gameLoop();
+
+/* funktionerna */
 
 /* rita ut pigan */
 function ritaPiga() {
@@ -84,36 +107,18 @@ function ritaKarta() {
 }
 
 /* rita ut monster */
-function ritaMonster() {
-    ctx.drawImage(monster.bild, monster.x, monster.y, 50, 50);
-    monster.y++;
-    if (monster.y > 600) {
-        monster.y = 0;
-        monster.x = Math.ceil(Math.random() * 750);
+function ritaMonster(figur) {
+    ctx.drawImage(figur.bild, figur.x, figur.y, 50, 50);
+    figur.y++;
+    if (figur.y > 600) {
+        figur.y = 0;
+        figur.x = Math.ceil(Math.random() * 750);
     }
 }
 
-/* rita ut monster2 */
-function ritaMonster2() {
-    ctx.drawImage(monster2.bild, monster2.x, monster2.y, 50, 50);
-    monster2.y++;
-    if (monster2.y > 600) {
-        monster2.y = 0;
-        monster2.x = Math.ceil(Math.random() * 750);
-    }
-}
-
-function krock() {
-    if ((piga.rad* 50) < monster.y && monster.y < (piga.rad * 50+50)) {
-        if ((piga.kol * 50) < monster.x && monster.x < (piga.kol * 50 + 50)) {
-            ctx.font = "bold 96px sans-serif";
-            ctx.fillStyle = "#fff";
-            ctx.fillText("Game Over!", 200, 200);
-            gameOver = true;
-        }
-    }
-    if ((piga.rad* 50) < monster2.y && monster2.y < (piga.rad * 50+50)) {
-        if ((piga.kol * 50) < monster2.x && monster2.x < (piga.kol * 50 + 50)) {
+function krock(figur) {
+    if ((piga.rad* 50) < figur.y && figur.y < (piga.rad * 50+50)) {
+        if ((piga.kol * 50) < figur.x && figur.x < (piga.kol * 50 + 50)) {
             ctx.font = "bold 96px sans-serif";
             ctx.fillStyle = "#fff";
             ctx.fillText("Game Over!", 200, 200);
@@ -122,7 +127,32 @@ function krock() {
     }
 }
 
+function ritaMynt(figur) {
+    ctx.drawImage(figur.bild, 0, 0, 50, 50, figur.x, figur.y, 50, 50);
+    figur.y++;
+    if (figur.y > 600) {
+        figur.y = 0;
+        figur.x = Math.ceil(Math.random() * 750);
+    }
+}
 
+function plockaMynt(figur) {
+    if ((piga.rad* 50) < figur.y && figur.y < (piga.rad * 50+50)) {
+        if (((piga.kol * 50) < figur.x && figur.x < (piga.kol * 50 + 50))) {
+            ctx.font = "bold 96px sans-serif";
+            ctx.fillStyle = "#fff";
+            ctx.fillText("+1", 200, 200);
+            figur.y = -Math.ceil(Math.random() * 250);
+            figur.x = Math.ceil(Math.random() * 750);
+            poäng++;
+            console.log("träff!", poäng);
+            ePoäng.textContent = poäng;
+
+        }
+    } 
+}
+
+/* spara poäng */
 
 /* Lyssna på pilarna */
 window.addEventListener("keydown", function(e) {
@@ -163,17 +193,16 @@ function gameLoop() {
     /* rensa skärmen */
     ctx.clearRect(0, 0, eCanvas.width, eCanvas.height);
     ritaKarta();
+    /* för varje mynt */
+    mynten.forEach(ritaMynt);
+    mynten.forEach(plockaMynt);
     ritaPiga();
-
-    ritaMonster();
-    ritaMonster2();
-    krock();
+    /* för varje monster */
+    monsters.forEach(ritaMonster);
+    monsters.forEach(krock);
 
     if (!gameOver) {
         requestAnimationFrame(gameLoop);
     }
     
 }
-
-/* starta spelet */
-gameLoop();
