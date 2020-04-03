@@ -1,0 +1,24 @@
+body{
+    overflow: hidden;
+    background: rgb(43, 27, 56);
+}
+canvas{
+    background: rgb(206, 206, 206);
+}
+#canvas{
+    border: 1px solid purple;
+    width: 800px;
+    height: 600px;
+}
+.kontainer{
+    color: #fff;
+    background: rgb(1, 110, 1);
+    border: 2px solid #fff;
+    margin: 20px auto;
+    width: 1000px;
+    display: grid;
+    grid-template-columns: auto auto;
+}
+h4{
+    margin-top: 20px;
+}

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="#">
+    <title>Testar att visa Tiled karta i canvas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas></canvas>
+    <script>
+        /* element vi jobbar med */
+        eCanvas = document.querySelector("canvas");
+
+        /* storlek på canvas */
+        eCanvas.width = 1280;
+        eCanvas.height = 800;
+
+        /* starta rityta */
+        var ctx = eCanvas.getContext("2d");
+
+        /* objekten */
+        var spelplan = {
+            rutor: 16,
+            bild: new Image()
+        };
+
+        /* ladda in tilesheet */
+        spelplan.bild.src = "./forest_tiles.png";
+
+        /* ******************* */
+        /* funktioner */
+        function läsaInJson() {
+            /* skapa ajax för att kunna hämta in en fil */
+            var ajax = new XMLHttpRequest();
+
+            /* gör ett anrop */
+            ajax.open("POST", "./tiled.json", true);
+            ajax.send();
+
+            /* ta emot svaret */
+            ajax.addEventListener("loadend", function () {
+                //console.log(this.responseText);
+                var data = JSON.parse(this.responseText);
+
+                /* för varje lager */
+                data.layers.forEach(function (lager) {
+                    console.log(lager.name, lager.height, lager.width);
+                    
+                    ritaKarta(lager)
+                })
+
+            });
+        }
+
+        /* rita karta */
+        function ritaKarta(lager) {
+            var index = 0;
+            /* gå igenom varje rad */
+            for (let rad = 0; rad < lager.height; rad++) {
+                /* gå igenom varje kolumn */
+                for (let kol = 0; kol < lager.width; kol++) {
+                    /* rita inte ut om ruta är tom */
+                    if (lager.data[index] != 0) {
+                        /* räkna ut pos i tilesheet */
+                        var rutaX = Math.floor(lager.data[index] % 16 - 1) * 32;
+                        var rutaY = Math.floor(lager.data[index] / 16) * 32;
+                        /* rita ut rutan i canvas */
+                        ctx.drawImage(spelplan.bild, rutaX, rutaY, 32, 32, kol * 32, rad * 32, 32, 32);
+                    }
+
+                    index++;
+                }
+            }
+        }
+        spelplan.bild.addEventListener("load", läsaInJson);
+    </script>
+</body>
+</html>
