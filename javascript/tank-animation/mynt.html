@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nyckelpiga spel</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="kontainer">
+        <canvas></canvas>
+    </div>
+    <script>
+        /* element vi jobbar med */
+        const eCanvas = document.querySelector("canvas");
+
+        /* ställ in storlek på canvas */
+        eCanvas.width = 800;
+        eCanvas.height = 600;
+
+        /* globala variabler */
+        var ctx = eCanvas.getContext("2d");
+
+        /* ladda in bilden */
+        var tileSheet = new Image();
+        tileSheet.src = "./coin-sprite.png";
+
+        /* frame index i tanksheet */
+        var tankIndex = 0;
+        var tankFrames = [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9, 9];
+
+        /* starta spelet */
+        gameLoop();
+
+
+        function ritaTank() {
+            var ruta = tankFrames[tankIndex];
+            ctx.drawImage(tileSheet, ruta * 44, 0, 44, 40, 100, 100, 44, 40);
+
+            tankIndex++;
+            if (tankIndex == tankFrames.length) {
+                tankIndex = 0;
+            }
+        }
+        function gameLoop() {
+            ctx.clearRect(0, 0, eCanvas.width, eCanvas.height);
+
+            ritaTank();
+
+            requestAnimationFrame(gameLoop);
+        }
+    </script>
+</body>
+</html>

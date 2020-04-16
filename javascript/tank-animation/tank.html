@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nyckelpiga spel</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="kontainer">
+        <canvas></canvas>
+    </div>
+    <script>
+        /* element vi jobbar med */
+        const eCanvas = document.querySelector("canvas");
+
+        /* ställ in storlek på canvas */
+        eCanvas.width = 800;
+        eCanvas.height = 600;
+
+        /* globala variabler */
+        var ctx = eCanvas.getContext("2d");
+
+        /* skapa piga, monster och mynt */
+        var tank = {
+            x: 0,
+            y: 0,
+            rot: 0,
+            bild: new Image()
+        }
+
+        /* ladda in bilden */
+        tank.bild.src = "./tanksheet.png";
+
+        /* frame index i tanksheet */
+        var tankIndex = 0;
+        var tankFrames = [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 6, 6, ];
+
+        /* starta spelet */
+        gameLoop();
+
+
+        function ritaTank() {
+            var ruta = tankFrames[tankIndex];
+            ctx.save();
+            ctx.translate(tank.x * 50 + 25, tank.y * 50 + 25);
+            ctx.rotate(tank.rot * (Math.PI / 180));
+            ctx.drawImage(tank.bild, ruta * 32, 0, 32, 32, -25, -25, 50, 50);
+            ctx.restore();
+
+            tankIndex++;
+            if (tankIndex == tankFrames.length) {
+                tankIndex = 0;
+            }
+        }
+
+        function gameLoop() {
+            ctx.clearRect(0, 0, eCanvas.width, eCanvas.height);
+
+            ritaTank();
+
+            requestAnimationFrame(gameLoop);
+        }
+        /* Lyssna på tangenter */
+        window.addEventListener("keydown", function(e) {
+            switch (e.key) {
+                case "ArrowRight":
+                    tank.x += 0.1;
+                    tank.rot = 90;
+                    break;
+
+                case "ArrowLeft":
+                tank.x -= 0.1;
+                    tank.rot = 270;
+                    break;
+
+                case "ArrowDown":
+                tank.y += 0.1;
+                    tank.rot = 180;
+                    break;
+
+                case "ArrowUp":
+                tank.y -= 0.1;
+                    tank.rot = 0;
+                    break;
+
+            }
+        });
+    </script>
+</body>
+</html>

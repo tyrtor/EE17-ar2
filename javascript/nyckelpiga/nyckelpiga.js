@@ -50,7 +50,7 @@ var mynt1 = {
 };
 
 /* spelets variabler */
-var gameOver = false
+var isGameOver = false
 
 /* Lagra alla monster i en array */
 var monsters = [];
@@ -86,7 +86,7 @@ gameLoop();
 function ritaPiga() {
     ctx.save();
     ctx.translate(piga.kol * 50 + 25, piga.rad * 50 + 25);
-    ctx.rotate(piga.rot);
+    ctx.rotate(piga.rot * (Math.PI / 180));
     ctx.drawImage(piga.bild, -25, -25, 50, 50);
     ctx.restore();
 }
@@ -106,6 +106,13 @@ function ritaKarta() {
     }
 }
 
+/* gameover */
+function gameOver() {
+    ctx.font = "bold 96px sans-serif";
+    ctx.fillStyle = "#fff";
+    ctx.fillText("Game Over!", 200, 200);
+}
+
 /* rita ut monster */
 function ritaMonster(figur) {
     ctx.drawImage(figur.bild, figur.x, figur.y, 50, 50);
@@ -117,12 +124,11 @@ function ritaMonster(figur) {
 }
 
 function krock(figur) {
-    if ((piga.rad* 50) < figur.y && figur.y < (piga.rad * 50+50)) {
-        if ((piga.kol * 50) < figur.x && figur.x < (piga.kol * 50 + 50)) {
-            ctx.font = "bold 96px sans-serif";
-            ctx.fillStyle = "#fff";
-            ctx.fillText("Game Over!", 200, 200);
-            gameOver = true;
+    var px = piga.kol * 50;
+    var py = piga.kol * 50 + 25;
+    if (py < figur.y && figur.y < py + 50) {
+        if (px < figur.x && figur.x < px + 50) {
+            isGameOver = true;
         }
     }
 }
@@ -137,8 +143,10 @@ function ritaMynt(figur) {
 }
 
 function plockaMynt(figur) {
-    if ((piga.rad* 50) < figur.y && figur.y < (piga.rad * 50+50)) {
-        if (((piga.kol * 50) < figur.x && figur.x < (piga.kol * 50 + 50))) {
+    var px = piga.kol * 50;
+    var py = piga.kol * 50 + 25;
+    if (py < figur.y && figur.y < py + 50) {
+        if (px < figur.x && figur.x < px + 50) {
             ctx.font = "bold 96px sans-serif";
             ctx.fillStyle = "#fff";
             ctx.fillText("+1", 200, 200);
@@ -161,21 +169,21 @@ window.addEventListener("keydown", function(e) {
             if (karta[piga.rad][piga.kol + 1] == 0) {
                 piga.kol++;
             }
-            piga.rot = 90 * (Math.PI / 180);
+            piga.rot = 90;
             break;
 
         case "ArrowLeft":
             if (karta[piga.rad][piga.kol - 1] == 0) {
                 piga.kol--;
             }
-            piga.rot = -90 * (Math.PI / 180);
+            piga.rot = 270;
             break;
 
         case "ArrowDown":
             if (karta[piga.rad + 1][piga.kol] == 0) {
                 piga.rad++;
             }
-            piga.rot = Math.PI;
+            piga.rot = 180;
             break;
 
         case "ArrowUp":
@@ -201,8 +209,10 @@ function gameLoop() {
     monsters.forEach(ritaMonster);
     monsters.forEach(krock);
 
-    if (!gameOver) {
+    if (!isGameOver) {
         requestAnimationFrame(gameLoop);
+    }else{
+        gameOver();
     }
     
 }
