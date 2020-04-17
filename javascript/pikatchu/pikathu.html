@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Canvas</title>
+    <link rel="stylesheet" href="./pikatchu.css">
+</head>
+<body>
+    <div class="kol2">
+        <canvas></canvas>
+        <div>
+            <h1>Rädda Pikachu</h1>
+
+        </div>
+    </div>
+    <script>
+        /* Ikoner från https://icons8.com/icon/set/game/color */
+        /* Ställ in canvas */
+        const eCanvas = document.querySelector("canvas");
+        eCanvas.width = 1200;
+        eCanvas.height = 1000;
+        var ctx = eCanvas.getContext("2d");
+
+        /* ****************************** */
+        /*           Objekten             */
+        /* ****************************** */
+
+        var spel = {
+            poäng: 0,
+            key: 0,
+            isGameOver: false
+        }
+
+        var pikachu = {
+            x: 500,
+            y: 900,
+            bild: new Image()
+        };
+        var pokeball = {
+            x: 0,
+            y: 900,
+            dy: 3,
+            fire: false,
+            bild: new Image()
+        }
+        var explosion = {
+            bild: new Image()
+        };
+        var pidgey = {
+            bild: new Image(),
+            x: Math.random() * 1000,
+            y: Math.random() * -600,
+        };
+        var psyduck = {
+            bild: new Image(),
+            x: Math.random() * 1000,
+            y: Math.random() * -600,
+        };
+        var desura = {
+            bild: new Image(),
+            x: Math.random() * 1000,
+            y: Math.random() * -600,
+        };
+        var eevee = {
+            bild: new Image(),
+            x: Math.random() * 1000,
+            y: Math.random() * -600,
+        };
+        var meowth = {
+            bild: new Image(),
+            x: Math.random() * 1000,
+            y: Math.random() * -600,
+        };
+        var mankey = {
+            bild: new Image(),
+            x: Math.random() * 1000,
+            y: Math.random() * -600,
+        };
+        var dratini = {
+            bild: new Image(),
+            x: Math.random() * 1000,
+            y: Math.random() * -600,
+        };
+        var piggies = {
+            bild: new Image(),
+            x: Math.random() * 1000,
+            y: Math.random() * -600,
+        };
+        var crash = {
+            bild: new Image(),
+            x: Math.random() * 1000,
+            y: Math.random() * -600,
+        };
+
+        /* Ladda in bilderna */
+        pikachu.bild.src = "./bilder/icons8-pikachu-pokemon-96.png";
+        pokeball.bild.src = "./bilder/icons8-pokeball-48.png";
+        explosion.bild.src = "./bilder/icons8-explosion-96.png";
+        pidgey.bild.src = "./bilder/icons8-pidgey-50.png";
+        psyduck.bild.src = "./bilder/icons8-psyduck-50.png";
+        desura.bild.src = "./bilder/icons8-desura-50.png";
+        eevee.bild.src = "./bilder/icons8-eevee-50.png";
+        meowth.bild.src = "./bilder/icons8-meowth-50.png";
+        mankey.bild.src = "./bilder/icons8-mankey-50.png";
+        dratini.bild.src = "./bilder/icons8-dratini-50.png";
+        piggies.bild.src = "./bilder/icons8-bad-piggies-50.png";
+        crash.bild.src = "./bilder/icons8-crash-bandicoot-50.png";
+
+        /* ****************************** */
+        /*     Starta animationsloopen    */
+        /* ****************************** */
+        loopen();
+
+        /* ****************************** */
+        /*            Funktioner          */
+        /* ****************************** */
+
+        /* Rita ut pikachu */
+        function ritaPikachu() {
+            ctx.drawImage(pikachu.bild, pikachu.x, pikachu.y, 96, 96);
+        }
+
+        /* Rita ut pokeball */
+        function ritaPokeball() {
+            if (pokeball.fire) {
+                pokeball.y-= 3;
+                ctx.drawImage(pokeball.bild, pokeball.x, pokeball.y, 50, 50);
+
+            }
+        }
+
+        /* Rita ut monster */
+        function ritaMonster(figur) {
+            /* Spawna om */
+            if (figur.y > 1000) {
+                figur.y = -Math.random() * 1000;
+                figur.x = Math.random() * 1000;
+            }
+            figur.y += 3;
+            ctx.drawImage(figur.bild, figur.x, figur.y, 50, 50);
+            /* Om kollision explodera */
+            if (pokeball.x + 40 > figur.x && pokeball.x < figur.x + 40 && 
+                pokeball.y + 40 > figur.x && pokeball.y < figur.y + 40) {
+
+                ctx.drawImage(explosion.bild, pokeball.x, pokeball.y)
+                figur.y = -Math.random() * 1000;
+                figur.x = Math.random() * 1000;
+                pokeball.fire = false;
+            }else{
+                ctx.drawImage(figur.bild, figur.x, figur.y, 50, 50);
+            }
+
+        }
+
+        /* https://keycode.info */
+        function uppdatera() {
+            switch (spel.key) {
+                case 39: // Pil åt höger
+                    pikachu.x += 3;
+                    break;
+                case 37: // pil åt vänster
+                    pikachu.x -=3;
+                    break;
+                case 32: // Mellanslag
+                    pokeball.fire = true;
+                    pokeball.x = pikachu.x;
+                    pokeball.y = pikachu.y;
+                    break;
+            }
+            console.log(pokeball.y);
+            
+        }
+
+        /* Animationsloopen */
+        function loopen() {
+            /* Sudda ut hela canvas */
+            ctx.clearRect(0, 0, 1200, 1000);
+
+            /* Rita ut pikachu */
+            ritaPikachu();
+
+            /* Rita ut monstren */
+            ritaMonster(piggies);
+            ritaMonster(crash);
+            ritaMonster(pidgey);
+            ritaMonster(psyduck);
+            ritaMonster(desura);
+            ritaMonster(eevee);
+            ritaMonster(meowth);
+            ritaMonster(mankey);
+            ritaMonster(dratini);
+
+            /* Rita ut pokeball-skottet */
+            ritaPokeball();
+
+            /* Uppdatera positioner */
+            uppdatera();
+
+            requestAnimationFrame(loopen);
+        }
+
+        /* Lyssna på input */
+        window.addEventListener("keydown", function (e) {
+            spel.key = e.keyCode;
+            
+        });
+        window.addEventListener("keyup", function (e) {
+            spel.key = 0;
+        });
+
+    </script>
+</body>
+</html>
