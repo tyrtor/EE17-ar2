@@ -69,9 +69,9 @@ const fg = {
 const bird = {
     animation: [
         {sX: 276, sY: 112},
-        {sX: 276, sY: 239},
+        {sX: 276, sY: 139},
         {sX: 276, sY: 164},
-        {sX: 276, sY: 239}
+        {sX: 276, sY: 139}
     ],
     x: 50,
     y: 150,
@@ -80,6 +80,10 @@ const bird = {
 
     frame: 0,
 
+    gravity: 0.25,
+    jump: 4.6,
+    speed: 0,
+
     draw: function() {
         var bird = this.animation[this.frame];
 
@@ -87,7 +91,7 @@ const bird = {
     }, 
     
     flap: function () {
-        
+        this.speed =- this.jump;
     },
 
     update: function () {
@@ -97,6 +101,19 @@ const bird = {
         this.frame += frames%this.period == 0 ? 1 : 0;
         /* frame goes from 0 to 4, then again to 0 */
         this.frame = this.frame%this.animation.length;
+
+        if (state.current == state.getRedy) {
+            
+        }else{
+            this.speed += this.gravity;
+            this.y += this.speed;
+            if (this.y + this.h/2 >= eCanvas.height - fg.h) {
+                this.y = eCanvas.height -fg.h - this.h/2;
+                if (state.current == state.game) {
+                    state.current = state.over;
+                }
+            }
+        }
     }
 }
 
@@ -141,6 +158,7 @@ function draw() {
     bird.draw();
     getRedy.draw();
     gameOver.draw();
+    bird.update();
     
 
 
