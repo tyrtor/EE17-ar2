@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hållplatser när NTI gymnasiet</title>
+    <link rel="shortcut icon" href="#">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.css" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <h1>Hållplatser nära NTI gymnasiet</h1>
+    <div id="map"></div>
+    <script>
+        /* Mapbox inställningar */
+        mapboxgl.accessToken = 'pk.eyJ1Ijoia2FyeWUiLCJhIjoiY2pwOXRtbWc1MGdmNjNwc2JmdGxzeDR5byJ9.whp8f2Ttws57ctAf_stuag';
+
+        /* Start positions: NTI */
+        var latNTI = 59.336885;
+        var lonNTI = 18.048323;
+
+        /* Skapa kartan */
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v9',
+            center: [lonNTI, latNTI],
+            zoom: 15
+        });
+
+        /* Skapa en special markerikon för skolan */
+        var nti = document.createElement('div');
+        nti.className = 'nti';
+
+        /* Skapa en popup med text */
+        var popup = new mapboxgl.Popup({ offset: 25 })
+            .setText('NTI Gymnasiet Stockhom');
+
+        /* Infoga specialmarkern */
+        new mapboxgl.Marker(nti)
+            .setLngLat([lonNTI, latNTI])
+            .setPopup(popup)
+            .addTo(map);
+
+        /* En array med 3 hållplatser */
+        var hållplatser = [
+            {
+                adress: 'Sabbatsbergs sjukhus (Stockholm)',
+                lat: 59.339,
+                lon: 18.0485
+            },
+            {
+                adress: 'Tegnérgatan (på Dalagatan) (Stockholm)',
+                lat: 59.3375,
+                lon: 18.05
+            },
+            {
+                adress: 'Wallingatan (Stockholm)',
+                lat: 59.336,
+                lon: 18.053
+            }
+        ];
+
+        /* Loopa igenom arrayen och infoga markers */
+        hållplatser.forEach(function(hållplats) {
+            console.log(hållplats.adress, hållplats.lat, hållplats.lon);
+                    
+           /* Skapa en special markerikon för skolan */
+            var buss = document.createElement('div');
+            buss.className = 'buss'; 
+
+            /* Skapa en popup med text */
+             var popup = new mapboxgl.Popup({ offset: 25 })
+                .setText(hållplats.adress);
+
+            /* Infoga specialmarkern */
+             new mapboxgl.Marker(buss)
+                .setLngLat([hållplats.lon, hållplats.lat])
+                .setPopup(popup)
+                .addTo(map);
+                
+        });
+    </script>
+</body>
+</html>

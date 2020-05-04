@@ -1,87 +1,3 @@
-Labb 3 - skanna katalog
-
-Karim Ryde
-4 nov. (Redigerad 4 nov.)
-
-Skanna katalog
-Google Dokument
-
-Skanna katalog.drawio
-Okänd filtyp
-
-style.css
-Formatmall
-Klasskommentarer
-Ditt arbete
-Tilldelad
-Privata kommentarer
-Labb 3 - skanna katalog
-/* body {
-    font-family: sans-serif;
-    background: #c4c4c4;
-}
-table {
-    width: 80%;
-    height: 100%;
-}
-.kol2 {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-}
-form {
-    width: 500px;
-    margin: 30px auto;
-    padding: 30px;
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    grid-gap: 20px;
-}
-.kontainer {
-    width: 800px;
-    margin: 30px auto;
-    padding: 30px;
-    background: #FFF;
-    border: 1px solid #DDD;
-    box-shadow: 0 0 5px #FFF;
-    border-radius: 10px;
-}
-label, input {
-    align-self: center;
-}
-table {
-    width: 300px;
-    background: #fcfcfc;
-    margin: 10px 0 20px;
-    text-align: right;
-    border-collapse: collapse;
-    max-height: 100% !important;
-}
-table.month caption {
-    font-size: 12px;
-}
-table td {
-    border: 1px solid #e9e9e9;
-    padding: 5px 5px 10px 10px;
-    font-size: 13px;
-    text-align: center;
-}
-table.month th {
-    font-size: 12px;
-    padding: 10px;
-}
-table.month td.vecka {
-    background: #fafcf1;
-}
-table.month td.helg {
-    background: #fff1f1;
-}
-table .fa {
-    color: cadetblue;
-}
-table img {
-    width: 50px;
-} */
 
 /* Enkel CSS-reset */
 html {
@@ -210,6 +126,20 @@ form span {
     top: 0;
     bottom: 0;
     width: 100%;
+}
+.nti{
+    background: url("./trafiklabbet/bilder/icons8-school-48.png");
+    background-size: cover;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+}
+.buss{
+    background: url("./trafiklabbet/bilder/icons8-location-48.png");
+    background-size: cover;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
 }
     
 
