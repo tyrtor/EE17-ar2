@@ -1,0 +1,54 @@
+
+@import url('https://fonts.googleapis.com/css?family=Slabo+27px');
+/* Enkel CSS-reset */
+html {
+    box-sizing: border-box;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+body, h1, h2, h3, h4, h5, h6, p, ul {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #ffece5;
+    font-family: 'Slabo 27px', serif;
+}
+.kontainer {
+    background: #fff;
+    padding: 40px;
+    max-width: 500px;
+    margin: 50px auto;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    box-shadow: 4px 4px 0px #55555534;
+}
+h2 {
+    color: #555;
+}
+label, input {
+    display: block;
+    margin: 1em 0 0.5em 0;
+    color: #777;
+}
+input {
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 0;
+}
+button {
+    margin: 24px 0 0 0;
+    font-size: 18px;
+    background: coral;
+    color: #fff;
+    padding: 6px 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.errors {
+    color: #be4949;
+}

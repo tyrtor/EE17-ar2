@@ -33,6 +33,13 @@ function showPosition(position) {
     .setLngLat([lonHem, latHem])
     .addTo(map);
 
+  map.flyTo({
+    center: [lonHem, latHem],
+    zoom: 15,
+    speed: 1,
+    curve: 1,
+  });
+
   /* skicka lat och lon till php */
   var ajax = new XMLHttpRequest();
 
