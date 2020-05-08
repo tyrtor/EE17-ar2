@@ -1,0 +1,36 @@
+
+@import url('https://fonts.googleapis.com/css?family=Libre+Baskerville&display=swap');
+
+body {
+    background: #9db4b2 url("./bilder/samuel-ramos-1319769-unsplash.jpg");
+}
+.kontainer {
+    background: #fff;
+    width: 800px;
+    margin: 1rem auto;
+    padding: 30px;
+    border-radius: 10px;
+    font-family: 'Libre Baskerville', serif;
+}
+header {
+    padding: 3rem;
+}
+h1 {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+main {
+    padding: 2rem;
+}
+form.jumbotron {
+    padding: 2rem;
+}
+label{
+    margin-top: 2rem;
+}
+button {
+    margin-top: 4rem;
+}
+.table td {
+    vertical-align: middle;
+}
